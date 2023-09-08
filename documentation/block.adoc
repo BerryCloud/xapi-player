@@ -256,7 +256,7 @@ A card side must have at least one of the following properties: `text`, `descrip
 
 === HTML Block
 
-An HTML block is a block that contains HTML content.
+A HTML block is a block that contains HTML content.
 
 ==== Parameters
 
@@ -265,7 +265,7 @@ An HTML block is a block that contains HTML content.
 | Name | Type | Description | Required
 | `type` | `string` | Type of the block | Yes
 | `doneCriteria` | `string` | Criteria to determine if the HTML block is done | No
-| `url` | `string` | The HTML content | Yes
+| `url` | `string` | URL of the HTML file | Yes
 |===
 
 ==== Restrictions
@@ -299,7 +299,7 @@ A labeled image block is a block that contains an image with labels.
 ==== Restrictions
 
 The `type` property must be set to `labeled-image`.
-  
+
 If set the `doneCriteria` property can be one of the following string values:
 
 * `experienced`

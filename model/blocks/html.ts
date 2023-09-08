@@ -1,11 +1,11 @@
 import { BlockType } from "./block";
 
 /**
- * HTML block.
+ * A block that displays HTML content.
  */
 export interface HTML extends BlockType {
   /**
-   * The type of this block.
+   * Type of the block.
    */
   readonly type: "html";
 
@@ -17,7 +17,7 @@ export interface HTML extends BlockType {
   doneCriteria?: "experienced";
 
   /**
-   * The URL of the content.
+   * URL of the content.
    */
   url: string;
 }
