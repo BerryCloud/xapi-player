@@ -1,4 +1,5 @@
 import { LanguageMap } from "@berry-cloud/ngx-xapi";
+import { Image } from "../image";
 import { BlockType } from "./block";
 
 /**
@@ -12,6 +13,8 @@ export interface Flashcard extends BlockType {
 
   /**
    * Cards of the flashcard block.
+   *
+   * There must be at least one card.
    */
   cards: [Card, ...Card[]];
 }
@@ -33,22 +36,22 @@ export interface Card {
 
 export interface CardSide {
   /**
-   * The text of this card side.
+   * Text of the card side.
    */
   text?: LanguageMap;
 
   /**
-   * The description of this card side.
+   * Description of the card side.
    */
   description?: LanguageMap;
 
   /**
-   * The image of this card side.
+   * Image of the card side.
    */
-  image?: string;
+  image?: Image;
 
   /**
-   * The audio of this card side.
+   * Audio of the card side.
    */
   audio?: string;
 }
