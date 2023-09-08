@@ -239,19 +239,17 @@ A card side is a side of a card.
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `text` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The text of the card side | No
-| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The description of the card side | No
-| `image` | `string` | The image of the card side | No
-| `audio` | `string` | The audio of the card side | No
+| `text` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] |  Text of the card side | No
+| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Description of the card side | No
+| `image` | link:image[Image] | Image of the card side | No
+| `audio` | `string` | Audio of the card side | No
 |===
 
 ===== Restrictions
 
-The `image` property must be a valid URL.
-
 The `audio` property must be a valid URL.
 
-A card side must have at least one of the following properties: `text`, `description`, `image`, `audio`.
+A card side must have at least one of the following properties: `text`, `description`, `image` or `audio`.
 
 === HTML Block
 
