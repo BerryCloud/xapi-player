@@ -67,7 +67,7 @@ The `doneCriteria` property can be one of the following string values:
 * `completed`
 * `interacted`
 
-The `minimumPanelsDone` property must be greater than 0 and must not be greater than the size of the `panels` array.Only applicable if the `doneCriteria` is set to `completed`.
+The `minimumPanelsDone` property must be greater than 0 and must not be greater than the size of the `panels` array. Only applicable if the `doneCriteria` is set to `completed`.
 
 The `panels` array must contain at least one <<Accordion Panel, AccordionPanel>> object.
 
@@ -186,7 +186,7 @@ A button is a button of a button group block.
 |===
 | Name | Type | Description | Required
 | `action` | `string` | Action of the button | Yes
-| `text` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#lang-maps[LanguageMap] | Text of the button | Yes
+| `text` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#lang-maps[LanguageMap] | Text of the button | No
 | `title` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#lang-maps[LanguageMap] | Title of the button | No
 | `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#lang-maps[LanguageMap] | Description of the button | No
 | `image` | link:image[Image] | Image of the button | No
@@ -195,6 +195,9 @@ A button is a button of a button group block.
 ===== Restrictions
 
 The `action` property must be a valid URL, PathId or PathContainerId.
+
+A button must have at least one of the following properties: `text`, `image`.
+
 
 ===== Details
 
