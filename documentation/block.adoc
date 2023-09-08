@@ -299,9 +299,7 @@ A labeled image block is a block that contains an image with labels.
 ==== Restrictions
 
 The `type` property must be set to `labeled-image`.
-
-The `image` property must be a valid URL.
-
+  
 If set the `doneCriteria` property can be one of the following string values:
 
 * `experienced`
