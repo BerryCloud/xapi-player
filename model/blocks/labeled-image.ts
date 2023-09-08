@@ -3,8 +3,6 @@ import { BlockType } from "./block";
 
 /**
  * A labeled image block.
- *
- * A labeled image block is considered done when its done criteria is met.
  */
 export interface LabeledImage extends BlockType {
   /**
