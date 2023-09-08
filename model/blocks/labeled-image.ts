@@ -38,7 +38,7 @@ export interface LabeledImage extends BlockType {
   minimumLabelsOpened?: number;
 
   /**
-   * The labels of this labeled image.
+   * Labels of this labeled image.
    */
   labels: [label, ...label[]];
 }

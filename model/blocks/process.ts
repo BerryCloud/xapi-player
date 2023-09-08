@@ -5,11 +5,11 @@ import { HTML } from "./html";
 import { YouTube } from "./youtube";
 
 /**
- * Process block.
+ * A process block is a block that contains a series of steps. Only one step is visible at a time.
  */
 export interface Process extends BlockType {
   /**
-   * The type of this block.
+   * Type of the block.
    */
   readonly type: "process";
 
@@ -23,16 +23,19 @@ export interface Process extends BlockType {
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * The steps of this process.
+   * Steps of the process.
    *
    * There must be at least two steps.
    */
   steps: [Step, Step, ...Step[]];
 }
 
+/**
+ * A step is a step of a process block.
+ */
 export interface Step extends Container {
   /**
-   * The blocks of this step.
+   * Blocks of the step.
    *
    * There must be at least one block.
    */

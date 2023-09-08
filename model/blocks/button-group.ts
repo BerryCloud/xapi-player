@@ -40,7 +40,7 @@ export interface ButtonGroup extends BlockType {
   single?: boolean;
 
   /**
-   * Buttons of this button group.
+   * Buttons of the button group.
    *
    * There must be at least one button.
    */

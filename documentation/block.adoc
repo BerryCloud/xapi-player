@@ -293,7 +293,7 @@ A labeled image block is a block that contains an image with labels.
 | `image` | xref:image.adoc[Image] | Image of the labeled image block | Yes
 | `doneCriteria` | `string` | Criteria to determine if the labeled image block is done | No
 | `minimumLabelsOpened` | `number` | Minimum number of labels that must be opened to consider the labeled image block done | No
-| `labels` | <<Label>> `array` | The labels of the labeled image block | Yes
+| `labels` | <<Label>> `array` | Labels of the labeled image block | Yes
 |===
 
 ==== Restrictions
@@ -325,8 +325,8 @@ A label is a label of a labeled image block.
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The name of the label | Yes
-| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The description of the label | No
+| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the label | Yes
+| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Description of the label | No
 | `x` | `number` | X coordinate of the label | Yes
 | `y` | `number` | Y coordinate of the label | Yes
 |===
@@ -338,7 +338,7 @@ A label is a label of a labeled image block.
 
 === Process Block
 
-A process block is a block that contains a number of steps. Only one step can be open at a time.
+A process block is a block that contains a number of steps. Only one step is visible at a time.
 
 ==== Parameters
 
@@ -348,7 +348,7 @@ A process block is a block that contains a number of steps. Only one step can be
 | Name | Type | Description | Required
 | `type` | `string` | Type of the block | Yes
 | `doneCriteria` | `string` | Criteria to determine if the process block is done | No
-| `steps` | <<Step>> `array` | The steps of the process block | Yes
+| `steps` | <<Step>> `array` | Steps of the process block | Yes
 |===
 
 ==== Restrictions
@@ -378,7 +378,7 @@ A step is a step of a process block.
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `blocks` | block `array` | The blocks of the step | Yes
+| `blocks` | block `array` | Blocks of the step | Yes
 |===
 
 ====== Restrictions
@@ -564,7 +564,7 @@ A questionnaire part is a part of a questionnaire block.
 
 === Tabs Block
 
-A tabs block is a block that contains a number of tabs. Only one tab can be open at a time.
+A tabs block is a block that contains a series of tabs. A single tab is always visible.
 
 ==== Parameters
 
@@ -587,7 +587,7 @@ The `doneCriteria` property can be one of the following string values:
 * `completed`
 * `interacted`
 
-The `minimumTabsDone` property must be greater than 0 and should not be greater than the size of the tabs array.
+The `minimumTabsDone` property must be greater than 0 and should not be greater than the size of the tabs array. Only applicable if the `doneCriteria` is set to `completed`.
 
 The `tabs` property must contain at least two <<Tab>> objects.
 

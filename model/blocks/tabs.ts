@@ -5,13 +5,11 @@ import { HTML } from "./html";
 import { YouTube } from "./youtube";
 
 /**
- * Tabs block.
- *
- * A single tab is always visible.
+ * A tabs block is a block that contains a series of tabs. A single tab is always visible.
  */
 export interface Tabs extends BlockType {
   /**
-   * The type of this block.
+   * Type of the block.
    */
   readonly type: "tabs";
 
@@ -25,7 +23,7 @@ export interface Tabs extends BlockType {
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * The minimum number of tabs that must be done in order for the block to be considered done.
+   * Minimum number of tabs that must be done in order for the block to be considered done.
    *
    * Only applicable if doneCriteria is completed.
    *
