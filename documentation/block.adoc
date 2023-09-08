@@ -244,7 +244,7 @@ A card side is a side of a card.
 | Name | Type | Description | Required
 | `text` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] |  Text of the card side | No
 | `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Description of the card side | No
-| `image` | xref:image.adoc[Image] | Image of the card side | No
+| `image` | xref:image[Image] | Image of the card side | No
 | `audio` | `string` | Audio of the card side | No
 |===
 
