@@ -390,7 +390,7 @@ The `blocks` property must contain at least one <<HTML Block, HTMLBlock>> or <<Y
 
 === Questionnaire Block
 
-A questionnaire block is a block that contains a number of questions and possibly additional questionnaires.
+A questionnaire block is a block that contains a number of questions.
 
 ==== Parameters
 
@@ -403,10 +403,10 @@ A questionnaire block is a block that contains a number of questions and possibl
 | `timeLimit` | `number` | Time limit of the questionnaire block in seconds | No
 | `attempts` | `number` | Number of attempts allowed for the questionnaire block | No
 | `numberOfQuestions` | `number` | Number of questions to be randomly selected from the questions array | No
-| `next` | <<Next Map,NextMap>> | Next block of the questionnaire block | No
 | `review` | `boolean` | If true, the learner can review the questionnaire block | No
 | `feedback` | <<Questionnaire Feedback, QuestionnaireFeedback>> | Feedback settings of the questionnaire block | No
 | `questions` | <<Question>> `array` | Questions of the questionnaire block | Yes
+| `next` | <<Next Map,NextMap>> | Next block of the questionnaire block | No
 |===
 
 ==== Restrictions
@@ -425,6 +425,8 @@ If defined, the `timeLimit` property must be greater than 0.
 If defined, the `attempts` property must be greater than 0.
 
 If defined, the `numberOfQuestions` property must be greater than 0 and should not be greater than the size of the questions array.
+
+The `questions` property must contain at least one <<Question>> object.
 
 ==== Details
 
