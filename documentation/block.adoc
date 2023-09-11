@@ -79,7 +79,7 @@ If the `doneCriteria` is set to `interacted`, then the accordion block is consid
 
 If `minimumPanelsDone` is undefined, then the block is considered done when all the panels are done.
 
-The `panels`should be displayed in the order they are defined in the `panels` array.
+The `panels` should be displayed in the order they are defined in the `panels` array.
 
 ===== Accordion Panel
 
@@ -429,7 +429,7 @@ The feedback of a questionnaire block is not inherited by the `next` block.
 
 The `doneCriteria` property is inherited by the `next` block irrespective of the `doneCriteria` property of the `next` block.
 
-If the `doneCriteria` is set to `passed`, then the questionnaire block is considered done when the learners score is greater than or equal to the pass criteria score or less than or equal to the pass criteria score if `inverse` is set to true and `next` is undefined. If `next`is defined, then it is considered done when the next step is done. Note: the `next` step inherits its `doneCriteria` from its parent.
+If the `doneCriteria` is set to `passed`, then the questionnaire block is considered done when the learners score is greater than or equal to the pass criteria score or less than or equal to the pass criteria score if `inverse` is set to true and `next` is undefined. If `next` is defined, then it is considered done when the next step is done. Note: the `next` step inherits its `doneCriteria` from its parent.
 
 If the `doneCriteria` is set to `experienced`, then the questionnaire block is considered done when the questionnaire block is visible.
 
@@ -559,9 +559,6 @@ A questionnaire part is a part of a questionnaire block.
 | Name | Type | Description | Required
 |===
 
-
-
-
 === Tabs Block
 
 A tabs block is a block that contains a series of tabs. A single tab is always visible.
@@ -574,7 +571,7 @@ A tabs block is a block that contains a series of tabs. A single tab is always v
 | `type` | `string` | Type of the block | Yes
 | `doneCriteria` | `string` | Criteria to determine if the tabs block is done | No
 | `minimumTabsDone` | `number` | Minimum number of tabs that must be done to consider the tabs block done | No
-| `tabs` |  <<Tab>> `array` | The tabs of the tabs block | Yes
+| `tabs` |  <<Tab>> `array` | Tabs of the tabs block | Yes
 |===
 
 ==== Restrictions
@@ -587,15 +584,9 @@ The `doneCriteria` property can be one of the following string values:
 * `completed`
 * `interacted`
 
-The `minimumTabsDone` property must be greater than 0 and should not be greater than the size of the tabs array. Only applicable if the `doneCriteria` is set to `completed`.
+The `minimumTabsDone` property must be greater than 1 and should not be greater than the size of the tabs array. Only applicable if the `doneCriteria` is set to `completed`.
 
 The `tabs` property must contain at least two <<Tab>> objects.
-
-==== Details
-
-If undefined, then the block is considered done when all the tabs are done. Only applicable if the `doneCriteria` is set to `completed`.
-
-
 
 ==== Details
 
@@ -603,23 +594,25 @@ If the `doneCriteria` is set to `experienced`, then the tabs block is considered
 If the `doneCriteria` is set to `completed`, then the tabs block is considered done when the minimum number of tabs have been done.
 If the `doneCriteria` is set to `interacted`, then the tabs block is considered done when at least one tab is opened.
 
-===== Tab
+If the `minimumTabsDone` property is undefined, then the block is considered done when all the tabs are done.
+
+==== Tab
 
 A tab is a tab of a tabs block.
 
-====== Parameters
+===== Parameters
 
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The name of the tab | Yes
-| `blocks` | <<HTML Block, HTML>> or <<YouTube Block, YouTube>> 
- `array` | The blocks of the tab | Yes
+| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the tab | Yes
+| `blocks` | <<HTML Block, HtmlBlock>> or <<YouTube Block, YouTubeBlock>> 
+ `array` | Blocks of the tab | Yes
 |===
 
-====== Restrictions
+===== Restrictions
 
-The `blocks` property must contain at least one <<HTML Block, HTML>> or <<YouTube Block, YouTube>> block object.
+The `blocks` property must contain at least one <<HTML Block, HtmlBlock>> or <<YouTube Block, YouTubeBlock>> block object.
 
 === Video Block
 

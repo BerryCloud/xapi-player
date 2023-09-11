@@ -25,38 +25,35 @@ export interface Tabs extends BlockType {
   /**
    * Minimum number of tabs that must be done in order for the block to be considered done.
    *
-   * Only applicable if doneCriteria is completed.
-   *
-   * The minimumTabsDone should not be greater than the number of tabs.
-   *
-   * If less than 2 the block is considered done when the block is experienced.
+   * Must be greater than 1 and must not be greater than the size of the tabs
+   * array. Only applicable if doneCriteria is completed.
    *
    * If undefined, then the block is considered done when all the tabs are done.
    */
   minimumTabsDone?: number;
 
   /**
-   * The tabs.
+   * Tabs of the block.
    *
    * There must be at least one tab.
    *
    * The tabs are shown in the order they are defined.
    *
    */
-  tabs: [TabContainer, ...TabContainer[]];
+  tabs: [Tab, ...Tab[]];
 }
 
 /**
- * A tab.
+ * A tab is a tab of a tabs block.
  */
-export interface TabContainer extends Container {
+export interface Tab extends Container {
   /**
-   * The name of this tab.
+   * Name of this tab.
    */
   name: LanguageMap;
 
   /**
-   * The blocks of this tab.
+   * Blocks of this tab.
    *
    * There must be at least one block.
    */

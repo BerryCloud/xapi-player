@@ -5,21 +5,21 @@ import { BlockType } from "./block";
  */
 export interface Video extends BlockType {
   /**
-   * The type of this block. This is always 'video'. This is a type discriminator.
+   * Type of the block.
    */
   readonly type: "video";
 
   /**
    * @inheritdoc
    *
-   * - ```experienced``` means that the video controls were visible to the learner.
+   * - ```experienced``` means that the block was visible to the learner.
    * - ```completed``` means that the video reached the end.
    * - ```interacted``` means that the video controls were used.
    */
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * The url of the video.
+   * URL of the video.
    */
   url: string;
 
