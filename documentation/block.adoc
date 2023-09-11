@@ -399,14 +399,14 @@ A questionnaire block is a block that contains a number of questions and possibl
 | Name | Type | Description | Required
 | `type` | `string` | Type of the block | Yes
 | `doneCriteria` | `string` | Criteria to determine if the questionnaire block is done | No
-| `passCriteria` | <<Pass Criteria,PassCriteria>> | The pass criteria of the questionnaire block | No
+| `passCriteria` | <<Pass Criteria,PassCriteria>> | Pass criteria of the questionnaire block | No
 | `timeLimit` | `number` | Time limit of the questionnaire block in seconds | No
 | `attempts` | `number` | Number of attempts allowed for the questionnaire block | No
 | `numberOfQuestions` | `number` | Number of questions to be randomly selected from the questions array | No
-| `next` | <<Next Map,NextMap>> | The next block of the questionnaire block | No
+| `next` | <<Next Map,NextMap>> | Next block of the questionnaire block | No
 | `review` | `boolean` | If true, the learner can review the questionnaire block | No
-| `feedback` | <<Questionnaire Feedback, QuestionnaireFeedback>> | The feedback of the questionnaire block | No
-| `questions` | <<Question>> `array` | The questions of the questionnaire block | Yes
+| `feedback` | <<Questionnaire Feedback, QuestionnaireFeedback>> | Feedback settings of the questionnaire block | No
+| `questions` | <<Question>> `array` | Questions of the questionnaire block | Yes
 |===
 
 ==== Restrictions
@@ -449,7 +449,7 @@ The pass criteria of a questionnaire block.
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `score` | `number` | The passing score | Yes
+| `score` | `number` | Passing score | Yes
 | `inverse` | `boolean` | If true, the score is the maximum score to pass the questionnaire | No
 | `unit` | `boolean` | If true this questionnaire is used to score the unit | No
 |===
@@ -471,8 +471,8 @@ A question of a questionnaire block.
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `id` | `string` | The id of the question | no
-| `definition` | <<Question Definition>> | The definition of the question | yes
+| `id` | `string` | Id of the question | no
+| `definition` | <<Question Definition>> | Definition of the question | yes
 |===
 
 ===== Restrictions
@@ -490,19 +490,19 @@ The definition of a question.
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The name of the question | yes
-| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The text of the question | no
-| `feedback` | <<Questionnaire Feedback>> | The feedback settings of the question | no
-| `interactionType` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#interaction-types[Interaction Type] | The interaction type of the question | no
+| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the question | yes
+| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Text of the question | no
+| `feedback` | <<Questionnaire Feedback>> | Feedback settings of the question | no
+| `interactionType` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#interaction-types[Interaction Type] | Interaction type of the question | no
 | `multipleChoices` | `boolean` | If true, the question is a multiple choice question | no
-| `score` | `number` | The score of the question | no
-| `correctResponsesPattern` | `string` `array` | The correct responses pattern of the question | no
-| `exitResponsesPattern` | `string` `array` | The exit responses pattern of the question | no
-| `choices` | <<Question Interaction Component>> `array` | The choices of the question | no
-| `scale` | <<Question Interaction Component>> `array` | The scale of the question | no
-| `source` | <<Question Interaction Component>> `array` | The source of the question | no
-| `target` | <<Question Interaction Component>> `array` | The target of the question | no
-| `steps` | <<Question Interaction Component>> `array` | The steps of the question | no
+| `score` | `number` | Score of the question | no
+| `correctResponsesPattern` | `string` `array` | Correct responses pattern of the question | no
+| `exitResponsesPattern` | `string` `array` | Exit responses pattern of the question | no
+| `choices` | <<Question Interaction Component>> `array` | Choices of the question | no
+| `scale` | <<Question Interaction Component>> `array` | Scale of the question | no
+| `source` | <<Question Interaction Component>> `array` | Source of the question | no
+| `target` | <<Question Interaction Component>> `array` | Target of the question | no
+| `steps` | <<Question Interaction Component>> `array` | Steps of the question | no
 |===
 
 ===== Restrictions
@@ -519,8 +519,8 @@ The feedback of a questionnaire block.
 |===
 | Name | Type | Description | Required
 | `score` | `boolean` | If true, the score is shown | no
-| `text` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The text of the feedback | no
-| `scoreText` | <<Score Text Map,ScoreTextMap>> | The score text of the feedback | no
+| `text` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Text of the feedback | no
+| `scoreText` | <<Score Text Map,ScoreTextMap>> | Score text of the feedback | no
 |===
 
 ==== Score Text Map
@@ -536,9 +536,9 @@ A question interaction component is a component of a question interaction type.
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `id` | `string` | The id of the question interaction component | no
-| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | The description of the question interaction component | no
-| `score` | `number` | The score of the question interaction component | no
+| `id` | `string` | Id of the question interaction component | no
+| `description` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Description of the question interaction component | no
+| `score` | `number` | Score of the question interaction component | no
 |===
 
 ===== Restrictions
