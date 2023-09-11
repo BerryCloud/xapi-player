@@ -1,3 +1,6 @@
+:toc: auto
+:toclevels: 4
+
 = Block
 
 A block is a unit of content. There are different types of blocks. Each block type has its own parameters.
@@ -81,11 +84,11 @@ If `minimumPanelsDone` is undefined, then the block is considered done when all 
 
 The `panels` should be displayed in the order they are defined in the `panels` array.
 
-===== Accordion Panel
+==== Accordion Panel
 
 An accordion panel is a panel of an accordion block.
 
-====== Parameters
+===== Parameters
 
 [cols="1,1,1,1"]
 |===
@@ -94,7 +97,7 @@ An accordion panel is a panel of an accordion block.
 | `blocks` | Block `array` | Blocks of the accordion panel | Yes
 |===
 
-====== Restrictions
+===== Restrictions
 
 The `blocks` array must contain at least one <<HTML Block, HtmlBlock>> or <<YouTube Block, YouTubeBlock>> object.
 
@@ -369,11 +372,11 @@ If the `doneCriteria` is set to `experienced`, then the process block is conside
 If the `doneCriteria` is set to `completed`, then the process block is considered done when all the steps have been done.
 If the `doneCriteria` is set to `interacted`, then the process block is considered done when at least one step is opened.
 
-===== Step
+==== Step
 
 A step is a step of a process block.
 
-====== Parameters
+===== Parameters
 
 [cols="1,1,1,1"]
 |===
@@ -381,7 +384,7 @@ A step is a step of a process block.
 | `blocks` | block `array` | Blocks of the step | Yes
 |===
 
-====== Restrictions
+===== Restrictions
 
 The `blocks` property must contain at least one <<HTML Block, HTMLBlock>> or <<YouTube Block, YouTubeBlock>> object.
 
@@ -439,7 +442,7 @@ If the `doneCriteria` is set to `interacted`, then the questionnaire block is co
 
 The `numberOfQuestions` property controls the number of questions to be randomly selected from the questions array. If undefined, then all the questions are used.
 
-===== Pass Criteria
+==== Pass Criteria
 
 The pass criteria of a questionnaire block.
 
@@ -451,17 +454,17 @@ The pass criteria of a questionnaire block.
 | `unit` | `boolean` | If true this questionnaire is used to score the unit | No
 |===
 
-====== Restrictions
+===== Restrictions
 
 The `score` property must not be greater than the sum of the scores of the questions.
 
-====== Details
+===== Details
 
 If the `inverse` property is true, then the score is the maximum score to pass the questionnaire. If false, then the score is the minimum score to pass the questionnaire.
 
 If the `unit` property is true, then the questionnaire is used to score the unit. A Passed statement is sent to the LRS when the questionnaire is passed. A Failed statement is sent to the LRS when the questionnaire is failed. 
 
-===== Question
+==== Question
 
 A question of a questionnaire block.
 
@@ -472,15 +475,15 @@ A question of a questionnaire block.
 | `definition` | <<Question Definition>> | The definition of the question | yes
 |===
 
-====== Restrictions
+===== Restrictions
 
 The `id` property must be a valid URI.
 
-====== Details
+===== Details
 
 The `id` property is used to identify the question. If undefined, then no Answered statement is sent to the LRS.
 
-===== Question Definition
+==== Question Definition
 
 The definition of a question.
 
@@ -502,15 +505,13 @@ The definition of a question.
 | `steps` | <<Question Interaction Component>> `array` | The steps of the question | no
 |===
 
-====== Restrictions
+===== Restrictions
 
 The `correctResponsesPattern` property must be an array of valid strings.
 
 The `exitResponsesPattern` property must be an array of valid strings.
 
-
-
-===== Questionnaire Feedback
+==== Questionnaire Feedback
 
 The feedback of a questionnaire block.
 
@@ -522,13 +523,13 @@ The feedback of a questionnaire block.
 | `scoreText` | <<Score Text Map,ScoreTextMap>> | The score text of the feedback | no
 |===
 
-====== Score Text Map
+==== Score Text Map
 
 The text to display based on the score.
 
 Score Text is a map of score to text where the score is the key and the text is the value. The text is a https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap].
 
-===== Question Interaction Component
+==== Question Interaction Component
 
 A question interaction component is a component of a question interaction type.
 
@@ -540,17 +541,17 @@ A question interaction component is a component of a question interaction type.
 | `score` | `number` | The score of the question interaction component | no
 |===
 
-====== Restrictions
+===== Restrictions
 
 The `id` property must be a valid URI.
 
-===== Next Map
+==== Next Map
 
 The next questionnaire part of a questionnaire block.
 
 A map of score to questionnaire part where the score is the key and the questionnaire part is the value or null.
 
-====== Questionnaire Part
+===== Questionnaire Part
 
 A questionnaire part is a part of a questionnaire block.
 
