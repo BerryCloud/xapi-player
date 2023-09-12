@@ -1,32 +1,17 @@
-import { InteractionType, LanguageMap } from "@berry-cloud/ngx-xapi/model";
+import {
+  Activity,
+  InteractionType,
+  LanguageMap,
+} from "@berry-cloud/ngx-xapi/model";
 import { BlockType } from "./block";
 
-/**
- * A questionnaire block is a block that contains a number of questions.
- *
- * A 'scored questionnaire' has at least one question or answer with a score. An 'unscored questionnaire' has no questions or answers with a score.
- *
- * A 'scored questionnaire' with a pass criteria can be passed or failed. A 'scored questionnaire' without a pass criteria can only be scored.
- *
- * Note: The activity id of the questionnaire could be the same as the activity id of the unit.
- */
-export interface Questionnaire extends BlockType {
+interface QuestionnairePart {
   /**
-   * Type of the block.
-   */
-  readonly type: "questionnaire";
-
-  /**
-   * @inheritdoc
+   * The activity of this questionnaire.
    *
-   * - ```passed``` means that the learners score has met the pass criteria and any next questionnaire is done.
-   * - ```experienced``` means that the questionnaire was visible to the learner.
-   * - ```completed``` means that the learner answered all of the required questions and any next questionnaire is done.
-   * - ```interacted``` means that the learner answered at least one question.
-   *
-   * If the doneCriteria is `passed` there must be a passCriteria.
+   * If undefined, no statements about this questionnaire are stored.
    */
-  doneCriteria?: "passed" | "experienced" | "completed" | "interacted";
+  activity?: Activity;
 
   /**
    * Pass criteria of this questionnaire.
@@ -36,7 +21,6 @@ export interface Questionnaire extends BlockType {
      * The passing score of this questionnaire.
      */
     score: number;
-
     /**
      * If true the scoring is inverted, this means that the learner must score
      * less than or equal to the passing score. If false the scoring is not
@@ -44,58 +28,43 @@ export interface Questionnaire extends BlockType {
      * to the passing score.
      */
     inverse?: boolean;
+    /**
+     * Time limit of this questionnaire in seconds.
+     *
+     * The time limit should be greater than 0.
+     *
+     * If undefined, there is no time limit.
+     *
+     * The time limit is measured from the time the learner starts the
+     * questionnaire.
+     *
+     * If the time limit is reached the learner cannot answer any more questions
+     * in this questionnaire.
+     *
+     * Note: If the `doneCriteria` is `passed` and the learner reaches time limit
+     * without passing, the questionnaire cannot be passed.
+     */
+    timeLimit?: number;
+    /**
+     * Number of attempts permitted for this questionnaire. If undefined the
+     * number of attempts is unlimited.
+     *
+     * The number of attempts should be greater than 0.
+     *
+     * Note: If the `doneCriteria` is `passed` and the learner reaches the
+     * maximum number of attempts without passing, the questionnaire cannot be
+     * passed.
+     */
+    attempts?: number;
+    /**
+     * The maximum number of questions to display. If undefined, all questions are
+     * displayed.
+     *
+     * If the number of questions is less than the number of questions in the
+     * questionnaire, the questions are selected randomly.
+     */
+    numberOfQuestions?: number;
   };
-
-  /**
-   * Time limit of this questionnaire in seconds.
-   *
-   * The time limit should be greater than 0.
-   *
-   * If undefined, there is no time limit.
-   *
-   * The time limit is measured from the time the learner starts the
-   * questionnaire.
-   *
-   * If the time limit is reached the learner cannot answer any more questions
-   * in this questionnaire.
-   *
-   * Note: If the `doneCriteria` is `passed` and the learner reaches time limit
-   * without passing, the questionnaire cannot be passed.
-   */
-  timeLimit?: number;
-
-  /**
-   * Number of attempts permitted for this questionnaire. If undefined the
-   * number of attempts is unlimited.
-   *
-   * The number of attempts should be greater than 0.
-   *
-   * Note: If the `doneCriteria` is `passed` and the learner reaches the
-   * maximum number of attempts without passing, the questionnaire cannot be
-   * passed.
-   */
-  attempts?: number;
-
-  /**
-   * The maximum number of questions to display. If undefined, all questions are
-   * displayed.
-   *
-   * If the number of questions is less than the number of questions in the
-   * questionnaire, the questions are selected randomly.
-   */
-  numberOfQuestions?: number;
-
-  /**
-   * Allows the learner to review their answers by going back through the
-   * questionnaire.
-   *
-   * The review will display the chosen answers for each question.
-   *
-   * The review is only available when any next questionnaire is done.
-   *
-   * If there is more than one step, the last step's review setting is used????
-   */
-  review?: boolean;
 
   /**
    * Setting of the introduction to display before the learner starts the
@@ -108,27 +77,22 @@ export interface Questionnaire extends BlockType {
      * If false, the introduction is not displayed.
      */
     display?: boolean;
-
     /**
      * Text to display on the questionnaire introduction.
      */
     text?: LanguageMap;
-
     /**
      * Display the pass criteria on the questionnaire introduction.
      */
     passCriteria?: boolean;
-
     /**
      * Display the time limit on the questionnaire introduction.
      */
     timeLimit?: boolean;
-
     /**
      * Display the number of attempts on the questionnaire introduction.
      */
     attempts?: boolean;
-
     /**
      * Display the number of questions on the questionnaire introduction.
      */
@@ -144,19 +108,18 @@ export interface Questionnaire extends BlockType {
      * Show the learners score on the questionnaire feedback
      */
     score?: boolean;
-
     /**
      * Text to display on the questionnaire feedback.
      */
     text?: LanguageMap;
-
     /**
      * Text to display on the questionnaire feedback for a score or range of scores.
      *
      * The text will be displayed when greater than or equal to the score.
      */
-    scoreText?: { [score: number]: LanguageMap | null };
-
+    scoreText?: {
+      [score: number]: LanguageMap | null;
+    };
     attempts?: boolean;
   };
 
@@ -179,15 +142,77 @@ export interface Questionnaire extends BlockType {
      * Display the parent feedback before displaying the next questionnaire.
      */
     parentFeedback?: boolean;
-
     /**
      * A questionnaire to display when the score is greater than or equal to the
      * score key.
      *
      * If null, the learner is not directed to a next questionnaire.
      */
-    [score: number]: Questionnaire | null;
+    [score: number]: QuestionnairePart | null;
   };
+}
+
+/*
+ * - ```passed``` means that the learners score has met the pass criteria and
+ * any next questionnaire is done.
+ *
+ * - ```experienced``` means that the questionnaire was visible to the
+ * learner.
+ *
+ * - ```completed``` means that the learner answered all of the required
+ * questions and any next questionnaire is done.
+ *
+ * - ```interacted``` means that the learner answered at least one question.
+ *
+ * If the doneCriteria is `passed` there must be a passCriteria.
+ */
+
+/**
+ * A questionnaire block is a block that contains a number of questions.
+ *
+ * A 'scored questionnaire' has at least one question or answer with a score. An 'unscored questionnaire' has no questions or answers with a score.
+ *
+ * A 'scored questionnaire' with a pass criteria can be passed or failed. A 'scored questionnaire' without a pass criteria can only be scored.
+ *
+ * Note: The activity id of the questionnaire could be the same as the activity id of the unit.
+ */
+export interface Questionnaire extends BlockType {
+  /**
+   * Type of the block.
+   */
+  readonly type: "questionnaire";
+
+  /**
+   * @inheritdoc
+   *
+   * - ```passed``` means that all questionnaire parts with a passCriteria are
+   * passed.
+   *
+   * - ```experienced``` means that the questionnaire was visible to the
+   * learner.
+   *
+   * - ```completed``` means that the last questionnaire part is finished.
+   *
+   * - ```interacted``` means that the learner answered at least one question
+   * from the first questionnaire part.
+   *
+   * If the doneCriteria is `passed` there must be a passCriteria.
+   */
+  doneCriteria?: "passed" | "experienced" | "completed" | "interacted";
+
+  /**
+   * Allows the learner to review their answers by going back through the
+   * questionnaire.
+   *
+   * The review will display the chosen answers for each question.
+   *
+   * The review is only available when any next questionnaire is done.
+   *
+   * If there is more than one step, the last step's review setting is used????
+   */
+  review?: boolean;
+
+  first: QuestionnairePart;
 }
 
 export interface Question {
