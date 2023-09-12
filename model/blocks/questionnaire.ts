@@ -6,7 +6,7 @@ import { BlockType } from "./block";
  *
  * A 'scored questionnaire' has at least one question or answer with a score. An 'unscored questionnaire' has no questions or answers with a score.
  *
- * A scored questionnaire with a pass criteria can be passed or failed. A scored questionnaire without a pass criteria can only be scored.
+ * A 'scored questionnaire' with a pass criteria can be passed or failed. A 'scored questionnaire' without a pass criteria can only be scored.
  *
  * Note: The activity id of the questionnaire could be the same as the activity id of the unit.
  */
@@ -19,9 +19,9 @@ export interface Questionnaire extends BlockType {
   /**
    * @inheritdoc
    *
-   * - ```passed``` means that the learners score has met the pass criteria and any next questionnaire part is done.
+   * - ```passed``` means that the learners score has met the pass criteria and any next questionnaire is done.
    * - ```experienced``` means that the questionnaire was visible to the learner.
-   * - ```completed``` means that the learner answered all of the required questions and any next questionnaire part is done.
+   * - ```completed``` means that the learner answered all of the required questions and any next questionnaire is done.
    * - ```interacted``` means that the learner answered at least one question.
    *
    * If the doneCriteria is `passed` there must be a passCriteria.
@@ -38,7 +38,10 @@ export interface Questionnaire extends BlockType {
     score: number;
 
     /**
-     * If true the scoring is inverted, this means that the learner must score less than or equal to the passing score. If false the scoring is not inverted, this means that the learner must score greater than or equal to the passing score.
+     * If true the scoring is inverted, this means that the learner must score
+     * less than or equal to the passing score. If false the scoring is not
+     * inverted, this means that the learner must score greater than or equal
+     * to the passing score.
      */
     inverse?: boolean;
   };
@@ -50,61 +53,93 @@ export interface Questionnaire extends BlockType {
    *
    * If undefined, there is no time limit.
    *
-   * The time limit is measured from the time the learner starts the questionnaire.
+   * The time limit is measured from the time the learner starts the
+   * questionnaire.
    *
-   * If the time limit is reached the learner cannot answer any more questions in this questionnaire.
+   * If the time limit is reached the learner cannot answer any more questions
+   * in this questionnaire.
+   *
+   * Note: If the `doneCriteria` is `passed` and the learner reaches time limit
+   * without passing, the questionnaire cannot be passed.
    */
   timeLimit?: number;
 
   /**
-   * Number of attempts permitted for this questionnaire. If undefined the number of attempts is unlimited.
+   * Number of attempts permitted for this questionnaire. If undefined the
+   * number of attempts is unlimited.
    *
    * The number of attempts should be greater than 0.
    *
-   * If the `doneCriteria` is `passed` and the learner reaches the maximum number of attempts without passing, the questionnaire cannot be passed.
+   * Note: If the `doneCriteria` is `passed` and the learner reaches the
+   * maximum number of attempts without passing, the questionnaire cannot be
+   * passed.
    */
   attempts?: number;
 
   /**
-   * The maximum number of questions to display. If undefined, all questions are displayed.
+   * The maximum number of questions to display. If undefined, all questions are
+   * displayed.
    *
-   * If the number of questions is less than the number of questions in the questionnaire, the questions are selected randomly.
+   * If the number of questions is less than the number of questions in the
+   * questionnaire, the questions are selected randomly.
    */
   numberOfQuestions?: number;
 
   /**
-   * Allows the learner to review their answers by going back through the questionnaire.
+   * Allows the learner to review their answers by going back through the
+   * questionnaire.
    *
    * The review will display the chosen answers for each question.
    *
-   * The review is only available when any next questionnaire part is done.
+   * The review is only available when any next questionnaire is done.
    *
    * If there is more than one step, the last step's review setting is used????
    */
   review?: boolean;
 
   /**
-   * The next questionnaire that is displayed for a specific score. The
-   * questionnaire is displayed when the score is greater than or equal to the
-   * score key.
-   *
-   * If undefined, the learner is not directed to a next questionnaire.
+   * Setting of the introduction to display before the learner starts the
+   * questionnaire.
    */
-  next?: {
-    [score: number]: QuestionnairePart | null;
-  };
-
-  /**
-   * Configures the feedback to display after the learner has completed the questionnaire.
-   */
-  feedback?: {
+  introduction?: {
     /**
-     * Display the questionnaire feedback.
+     * Display the questionnaire introduction.
      *
-     * If false, the feedback is not displayed.
+     * If false, the introduction is not displayed.
      */
     display?: boolean;
 
+    /**
+     * Text to display on the questionnaire introduction.
+     */
+    text?: LanguageMap;
+
+    /**
+     * Display the pass criteria on the questionnaire introduction.
+     */
+    passCriteria?: boolean;
+
+    /**
+     * Display the time limit on the questionnaire introduction.
+     */
+    timeLimit?: boolean;
+
+    /**
+     * Display the number of attempts on the questionnaire introduction.
+     */
+    attempts?: boolean;
+
+    /**
+     * Display the number of questions on the questionnaire introduction.
+     */
+    numberOfQuestions?: boolean;
+  };
+
+  /**
+   * Settings of the feedback to display after the learner has completed the
+   * questionnaire.
+   */
+  feedback?: {
     /**
      * Show the learners score on the questionnaire feedback
      */
@@ -121,6 +156,8 @@ export interface Questionnaire extends BlockType {
      * The text will be displayed when greater than or equal to the score.
      */
     scoreText?: { [score: number]: LanguageMap | null };
+
+    attempts?: boolean;
   };
 
   /**
@@ -129,6 +166,28 @@ export interface Questionnaire extends BlockType {
    * There must be at least one question.
    */
   questions: [Question, ...Question[]];
+
+  /**
+   * The next questionnaire to display when the learner has completed this
+   * questionnaire.
+   *
+   * If undefined the learner is not directed to a next questionnaire and the
+   * learner is shown the questionnaire feedback.
+   */
+  next?: {
+    /**
+     * Display the parent feedback before displaying the next questionnaire.
+     */
+    parentFeedback?: boolean;
+
+    /**
+     * A questionnaire to display when the score is greater than or equal to the
+     * score key.
+     *
+     * If null, the learner is not directed to a next questionnaire.
+     */
+    [score: number]: Questionnaire | null;
+  };
 }
 
 export interface Question {
@@ -274,8 +333,6 @@ export interface QuestionInteractionComponent {
    */
   score?: number;
 }
-
-type QuestionnairePart = Exclude<Questionnaire, "doneCriteria, activity">;
 
 export class Example {
   x: Questionnaire = {
