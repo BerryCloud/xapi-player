@@ -1,4 +1,4 @@
-import { Activity, LanguageMap, Statement } from "@berry-cloud/ngx-xapi";
+import { Activity, LanguageMap } from "@berry-cloud/ngx-xapi";
 import { Image } from "./image";
 
 import { Path, PathCompletedContainer, PathContainer } from "./path";
@@ -68,6 +68,7 @@ export interface Unit {
   paths?: Path[];
 }
 
+/*
 const statement: Statement = {
   actor: {
     name: "John Doe",
@@ -162,3 +163,4 @@ const unit2: Unit = {
     },
   ],
 };
+*/

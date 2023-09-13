@@ -78,7 +78,7 @@ export interface Questionnaire extends BlockType {
    * The feedback will always include the:
    *
    * - number of attempts remaining
-   * - feedback for each questionnaire part
+   * - feedback for each questionnaire part that has feedback
    */
   feedback: {
     text: LanguageMap;
@@ -274,16 +274,14 @@ export interface QuestionDefinition {
    */
   feedback?: {
     /**
-     * Show the feedback to the learner immediately after answering the question.
-     *
-     * Independent of the review setting???
+     * If true, the question feedback is shown to the learner immediately after answering the question.
      */
     immediate?: boolean;
 
     /**
-     * Show the correct answer to the learner.
+     * If true, the correct answer is shown to the learner.
      *
-     * Immediate feedback must be true or review must be true???
+     * If true, immediate feedback **should** be true or questionnaire review **should** be true.
      */
     showCorrectResponse?: boolean;
 
@@ -292,7 +290,7 @@ export interface QuestionDefinition {
      *
      * Only displayed when correctResponsePattern is defined.
      *
-     * Immediate feedback must be true or review must be true.
+     * If defined, immediate feedback **should** be true or questionnaire review **should** be true.
      */
     correctText?: LanguageMap;
 
@@ -301,19 +299,24 @@ export interface QuestionDefinition {
      *
      * Only displayed when correctResponsePattern is defined.
      *
-     * Immediate feedback must be true or review must be true.
+     * If defined, immediate feedback **should** be true or questionnaire review **should** be true.
      */
     incorrectText?: LanguageMap;
 
     /**
      * Show an icon to indicate if the learners answer is correct or incorrect.
+     *
+     * correctResponsePattern **should** be defined for this to have any effect.
+     *
+     * If true, immediate feedback **should** be true or questionnaire review **should** be true.
+     * * If true, immediate feedback **should** be true or questionnaire review **should** be true.
      */
     successIcon?: boolean;
 
     /**
      * Text to display on the question.
      *
-     * Immediate feedback must be true or review must be true.
+     * If defined, immediate feedback **should** be true or questionnaire review **should** be true.
      */
     text?: LanguageMap;
   };
