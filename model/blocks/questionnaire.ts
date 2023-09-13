@@ -6,10 +6,19 @@ import {
 import { BlockType } from "./block";
 
 /**
- * A questionnaire block is a block that contains a number of questionnaire
- * parts.
+ * A questionnaire is a block that contains a number of questionnaire parts.
  *
- * Note: The activity id of the questionnaire could be the same as the activity id of the unit.
+ * A questionnaire is 'passed' when all the questionnaire parts with a
+ * passCriteria meet their passCriteria.
+ *
+ * A questionnaire is 'experienced' when the first questionnaire part is
+ * displayed.
+ *
+ * A questionnaire is 'completed' when the 'last questionnaire part' is
+ * 'finished'.
+ *
+ * A questionnaire is 'interacted' when the learner answers at least one
+ * question from the first questionnaire part.
  */
 export interface Questionnaire extends BlockType {
   /**
@@ -20,53 +29,65 @@ export interface Questionnaire extends BlockType {
   /**
    * @inheritdoc
    *
-   * - `passed` means that all questionnaire parts with a passCriteria are
-   * passed.
+   * - `passed` means that the questionnaire is done when it is 'passed'.
    *
-   * - `experienced` means that the questionnaire was 'visible' to the
-   * learner.
+   * - `experienced` means that the questionnaire is done when it is
+   * 'experienced'.
    *
-   * - `completed` means that the last questionnaire part is 'finished'.
+   * - `completed` means that the questionnaire is done when it is 'completed'.
    *
-   * - `interacted` means that the learner answered at least one question
-   * from the first questionnaire part.
+   * - `interacted` means that the questionnaire is done when it has been
+   * 'interacted' with.
    *
-   * If the doneCriteria is `passed` there **must** be at least one questionnaire
-   * part in this questionnaire with a passCriteria.
+   * If the doneCriteria is `passed` there **must** be at least one
+   * questionnaire part in the questionnaire with a passCriteria.
    */
   doneCriteria?: "passed" | "experienced" | "completed" | "interacted";
 
   /**
-   * Allows the learner to review their answers by going back through the
-   * questionnaire.
+   * Allows the learner to review the questions and their answers.
    *
-   * The review will display the chosen answers for each question.
+   * The review is only available when the questionnaire is 'completed'.
    *
-   * The review is only available when any next questionnaire is done.
-   *
-   * If there is more than one step, the last step's review setting is used????
+   * The answers cannot be changed during the review.
    */
   review?: boolean;
 
   /**
-   * Number of attempts permitted for this questionnaire. If undefined the
-   * number of attempts is unlimited.
+   * Number of attempts permitted for this questionnaire.
    *
-   * The number of attempts should be greater than 0.
+   * The number of attempts **must** be greater than 0.
+   *
+   * If undefined the number of attempts is unlimited.
    *
    * Note: If the `doneCriteria` is `passed` and the learner reaches the
    * maximum number of attempts without passing, the questionnaire cannot be
-   * passed.
+   * 'passed'.
    */
   attempts?: number;
 
+  /**
+   * The first questionnaire part of this questionnaire.
+   */
   first: QuestionnairePart;
+
+  /**
+   * Settings of the feedback to display after the learner has 'completed'
+   * the questionnaire.
+   *
+   * The feedback will always include the:
+   *
+   * - number of attempts remaining
+   * - feedback for each questionnaire part
+   */
+  feedback: {
+    text: LanguageMap;
+  };
 }
 
 /**
- * A questionnaire part is a part of a questionnaire. A questionnaire can have
- * multiple questionnaire parts. Questionnaire parts are defined as a tree
- * structure. The learners score determines which questionnaire part is next.
+ * A questionnaire part contains a number of questions. A 'scored questionnaire
+ * part' can have a conditional next questionnaire part.
  *
  * A 'scored questionnaire part' has at least one question or answer with a
  * score.
@@ -76,6 +97,9 @@ export interface Questionnaire extends BlockType {
  * A 'scored questionnaire part' with a pass criteria can be passed or failed.
  *
  * A 'scored questionnaire part' without a pass criteria can only be scored.
+ *
+ * A 'last questionnaire part' has an undefined next property or there is no
+ * next questionnaire part to display for the learner's score.
  *
  * A questionnaire part is 'finished' when no more questions can be answered.
  *
@@ -90,18 +114,19 @@ interface QuestionnairePart {
   /**
    * The activity of this questionnaire part.
    *
-   * If undefined, no statements about this questionnaire part are stored.
+   * If undefined, no statements about this questionnaire part are sent.
    */
   activity?: Activity;
 
   /**
-   * Pass criteria of this questionnaire.
+   * Pass criteria of this questionnaire part.
    */
   passCriteria?: {
     /**
-     * The passing score of this questionnaire.
+     * Passing score of this questionnaire.
      */
     score: number;
+
     /**
      * If true the scoring is inverted, this means that the learner must score
      * less than or equal to the passing score. If false the scoring is not
@@ -112,88 +137,87 @@ interface QuestionnairePart {
   };
 
   /**
-   * The number of questions to display.
+   * The number of questions to ask. The questions are selected randomly.
    *
-   * If undefined, all questions are displayed.
+   * Must be greater than 0 and must not be greater than the number of
+   * questions in the questionnaire part.
    *
-   * If the number of questions is less than the number of questions in the
-   * questionnaire, the questions are selected randomly.
+   * If undefined, all questions are asked.
    */
   numberOfQuestions?: number;
 
   /**
-   * Time limit of this questionnaire in seconds.
+   * Time limit of this questionnaire part in seconds.
    *
-   * The time limit should be greater than 0.
+   * The time limit **must** be greater than 0.
    *
    * If undefined, there is no time limit.
    *
    * The time limit is measured from the time the learner starts the
-   * questionnaire.
+   * questionnaire part.
    *
    * If the time limit is reached the learner cannot answer any more questions
-   * in this questionnaire.
+   * in this questionnaire part.
    *
-   * Note: If the `doneCriteria` is `passed` and the learner reaches time limit
-   * without passing, the questionnaire cannot be passed.
+   * Note: If the doneCriteria is `passed` and the learner reaches time limit
+   * without passing, the questionnaire part cannot be passed.
    */
   timeLimit?: number;
 
   /**
-   * Setting of the introduction to display before the learner starts the
-   * questionnaire.
+   * The introduction configuration. The introduction is displayed before the
+   * learner starts the questionnaire part.
    */
   introduction?: {
     /**
-     * Display the questionnaire introduction.
-     *
-     * If false, the introduction is not displayed.
-     */
-    display?: boolean;
-    /**
-     * Text to display on the questionnaire introduction.
+     * Text to display.
      */
     text?: LanguageMap;
+
     /**
-     * Display the pass criteria on the questionnaire introduction.
+     * If true, the pass criteria is displayed.
      */
     passCriteria?: boolean;
+
     /**
-     * Display the time limit on the questionnaire introduction.
-     */
-    timeLimit?: boolean;
-    /**
-     * Display the number of attempts on the questionnaire introduction.
-     */
-    attempts?: boolean;
-    /**
-     * Display the number of questions on the questionnaire introduction.
+     * Display the number of questions that the learner must answer.
      */
     numberOfQuestions?: boolean;
+
+    /**
+     * If true, the time limit is displayed.
+     */
+    timeLimit?: boolean;
   };
 
   /**
-   * Settings of the feedback to display after the learner has completed the
-   * questionnaire.
+   * Settings of the feedback for this questionnaire part to display on the
+   * questionnaire feedback.
    */
   feedback?: {
     /**
-     * Show the learners score on the questionnaire feedback
-     */
-    score?: boolean;
-    /**
-     * Text to display on the questionnaire feedback.
+     * Text to display.
      */
     text?: LanguageMap;
+
     /**
-     * Text to display on the questionnaire feedback for a score or range of scores.
+     * If true, the score is displayed.
+     */
+    score?: boolean;
+
+    /**
+     * If true, a pass or fail icon is displayed.
+     */
+    icon?: boolean;
+
+    /**
+     * Text to display for a score or range of scores.
      *
      * The text will be displayed when greater than or equal to the score.
      */
     scoreText?: {
       [score: number]: LanguageMap | null;
     };
-    attempts?: boolean;
   };
 
   /**
@@ -204,19 +228,14 @@ interface QuestionnairePart {
   questions: [Question, ...Question[]];
 
   /**
-   * The next questionnaire to display when the learner has completed this
-   * questionnaire.
+   * The next questionnaire part to display when the learner has completed this
+   * questionnaire part.
    *
-   * If undefined the learner is not directed to a next questionnaire and the
-   * learner is shown the questionnaire feedback.
+   * If undefined the learner is not directed to a next questionnaire part.
    *
    * Only valid when the questionnaire part is 'scored'.
    */
   next?: {
-    /**
-     * Display the parent feedback before displaying the next questionnaire.
-     */
-    parentFeedback?: boolean;
     /**
      * A questionnaire to display when the score is greater than or equal to the
      * score key.
@@ -369,179 +388,4 @@ export interface QuestionInteractionComponent {
    * Score of this interaction component. This score is overridden by the score of the QuestionDefinition.
    */
   score?: number;
-}
-
-export class Example {
-  x: Questionnaire = {
-    type: "questionnaire",
-
-    activity: {
-      id: "example.com/questionnaires/suicidal-thoughts",
-      definition: {
-        name: {
-          en: "Suicidal thoughts",
-        },
-        description: {
-          en: 'At the beginning of every session, the user is asked the following question:\n\n"Have you had any thoughts about suicide in the last week?"\n\nIf they answer yes then the user is asked the additional question:\n\n"How often have you thought about ending your life in the last week?"\n\n0: No thoughts\n1: Once\n2: Twice\n3: Three times\n4: More than three times',
-        },
-      },
-    },
-
-    attempts: 1,
-    review: true,
-    feedback: {
-      score: false,
-      scoreText: {}, // Parent feedback is false so scoreText is irrelevant
-      text: { en: "Thank you for answering that question" }, // This will only display if learner answers no
-    },
-
-    questions: [
-      {
-        id: undefined, // The answer should not be sent back to the LRS because the score for the answer is unique
-        definition: {
-          description: {
-            en: "Have you had any thoughts about suicide in the last week?",
-          },
-          interactionType: "choice",
-          multipleChoice: false,
-
-          choices: [
-            {
-              id: "yes",
-              description: { en: "Yes" },
-              score: 1,
-            },
-            {
-              id: "no",
-              description: { en: "No" },
-              score: 0,
-            },
-          ],
-          exitResponsesPattern: ["no"],
-        },
-      },
-      {
-        definition: {
-          description: {
-            en: "How often have you thought about ending your life in the last week?",
-          },
-          interactionType: "choice",
-          multipleChoice: false,
-
-          choices: [
-            {
-              id: "once",
-              description: {
-                en: "Once",
-              },
-              score: 0, // Score is summed, learn must have answered yes in previous question.
-            },
-            {
-              id: "twice",
-              description: {
-                en: "Twice",
-              },
-              score: 1,
-            },
-            {
-              id: "three",
-              description: {
-                en: "Three times",
-              },
-              score: 2,
-            },
-            {
-              id: "more",
-              description: {
-                en: "More than three times",
-              },
-              score: 3,
-            },
-          ],
-        },
-      },
-    ],
-
-    next: {
-      0: null, // No suicidal thoughts so no next step
-      1: {
-        type: "questionnaire",
-
-        // the result activity
-        activity: {
-          id: "example.com/questionnaires/suicidal-plans",
-          definition: {
-            name: {
-              en: "Suicidal Plans",
-            },
-            description: {
-              en: 'If the user reports thoughts of suicide in the last week, they are asked the following question about their suicidal plans:\n\n"How seriously have you planned to carry it out?"\n\n0: Not very seriously\n8: Seriously',
-            },
-          },
-        },
-
-        attempts: 1,
-        review: true,
-
-        feedback: {
-          score: false,
-          scoreText: {
-            4: { en: "You should speak to someone immediately" }, // under 4 is not considered serious
-          },
-          text: { en: "Thank you for answering those questions" },
-        },
-        questions: [
-          {
-            id: "example.com/questionnaires/suicidal-plans/questionnaire/how-seriously",
-
-            definition: {
-              description: {
-                en: "How seriously have you planned to carry it out?",
-              },
-              interactionType: "choice",
-              multipleChoice: false,
-              choices: [
-                {
-                  id: "0",
-                  description: { en: "0" },
-                },
-                {
-                  id: "1",
-                  description: { en: "1" },
-                },
-                {
-                  id: "2",
-                  description: { en: "2" },
-                },
-                {
-                  id: "3",
-                  description: { en: "3" },
-                },
-                {
-                  id: "4",
-                  description: { en: "4" },
-                },
-                {
-                  id: "5",
-                  description: { en: "5" },
-                },
-                {
-                  id: "6",
-                  description: { en: "6" },
-                },
-                {
-                  id: "7",
-                  description: { en: "7" },
-                },
-                {
-                  id: "8",
-                  description: { en: "8" },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  };
 }
