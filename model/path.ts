@@ -33,7 +33,7 @@ export interface Path {
 }
 
 /**
- * A PathContainer is a container that can be used in a path.
+ * A path container is a container that can be used in a path.
  */
 export interface PathContainer extends Container {
   /**
@@ -52,11 +52,11 @@ export interface PathContainer extends Container {
 }
 
 /**
- * A PathCompletedContainer is a container that completes the unit.
+ * A path completed container is a container that completes the unit.
  */
 export interface PathCompletedContainer extends PathContainer {
   /**
-   * The unit will be completed when this container is done.
+   * If true, the unit will be *completed* when this container is done.
    */
   completed: true;
 }
@@ -67,11 +67,11 @@ export interface PathCompletedContainer extends PathContainer {
 export type PathId = `paths/${string}`;
 
 /**
- * A container id is used to identify a container.
+ * A path container id is used to identify a container.
  *
  * The id:
- * - must be unique in the unit.
+ * - **must** be unique in the unit.
  * - is immutable so it can be used as a key.
- * - must be url friendly.
+ * - **must** be url friendly.
  */
 export type PathContainerId = `containers/${string}`;

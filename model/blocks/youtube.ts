@@ -5,7 +5,7 @@ import { BlockType } from "./block";
  */
 export interface YouTube extends BlockType {
   /**
-   * The type of this block. This is always 'youtube'. This is a type discriminator.
+   * The type of this block. This is always `youtube`. This is a type discriminator.
    */
   readonly type: "youtube";
 
@@ -19,7 +19,7 @@ export interface YouTube extends BlockType {
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * The videoId of the YouTube video.
+   * The `videoId` of the YouTube video.
    */
   videoId: string;
 

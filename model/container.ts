@@ -30,7 +30,7 @@ export interface Container {
   /**
    * Blocks of this container.
    *
-   * There must be at least one block.
+   * There **must** be at least one block.
    */
   blocks: [...Block[], Block];
 }

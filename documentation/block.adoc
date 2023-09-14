@@ -19,7 +19,7 @@ All blocks have the following parameters.
 
 == Restrictions
 
-The `type` property must be set to one of the following string values:
+The `type` property **must** be set to one of the following string values:
 
 * `accordion`
 * `audio`

@@ -23,10 +23,12 @@ export interface Accordion extends BlockType {
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * Minimum number of panels that must be done in to considered the accordion done.
+   * Minimum number of panels required to be done to consider the accordion done.
    *
-   * Must be greater than 0 and must not be greater than the size of the panels
-   * array. Only applicable if doneCriteria is set to ```completed```.
+   * Only applicable if `doneCriteria` is set to `completed`.
+   *
+   * **Must** be greater than 0 and **must** not be greater than the size of the panels
+   * array.
    *
    * If undefined, then the block is considered done when all the panels are done.
    */
@@ -35,9 +37,9 @@ export interface Accordion extends BlockType {
   /**
    * Panels of the accordion.
    *
-   * There must be at least one panel.
+   * There **must** be at least one panel.
    *
-   * The panels should be displayed in the order they are defined.
+   * The panels are displayed in the order they are defined.
    */
   panels: [AccordionPanel, ...AccordionPanel[]];
 }
@@ -56,7 +58,7 @@ export interface AccordionPanel extends Container {
   /**
    * Blocks of the accordion panel.
    *
-   * There must be at least one block.
+   * There **must** be at least one block.
    */
   blocks: [...(HTML | YouTube)[], HTML | YouTube];
 }

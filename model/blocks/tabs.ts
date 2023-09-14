@@ -23,10 +23,12 @@ export interface Tabs extends BlockType {
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * Minimum number of tabs that must be done in order for the block to be considered done.
+   * Minimum number of tabs that are required to be done in order for the block to be considered done.
    *
-   * Must be greater than 1 and must not be greater than the size of the tabs
-   * array. Only applicable if doneCriteria is completed.
+   * Only applicable if `doneCriteria` is completed.
+   *
+   * **Must** be greater than 1 and **must** not be greater than the size of the tabs
+   * array.
    *
    * If undefined, then the block is considered done when all the tabs are done.
    */
@@ -35,7 +37,7 @@ export interface Tabs extends BlockType {
   /**
    * Tabs of the block.
    *
-   * There must be at least one tab.
+   * There **must** be at least one tab.
    *
    * The tabs are shown in the order they are defined.
    *
@@ -55,7 +57,7 @@ export interface Tab extends Container {
   /**
    * Blocks of this tab.
    *
-   * There must be at least one block.
+   * There **must** be at least one block.
    */
   blocks: [...(HTML | YouTube)[], HTML | YouTube];
 }

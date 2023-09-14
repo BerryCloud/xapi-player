@@ -25,13 +25,11 @@ export interface LabeledImage extends BlockType {
   doneCriteria: "experienced" | "completed" | "interacted";
 
   /**
-   * The minimum number of labels that must be opened in order for the block to be considered done.
+   * The minimum number of labels required to be opened in order for the block to be considered done.
    *
-   * Only applicable if doneCriteria is completed.
+   * Only applicable if `doneCriteria` is `completed`.
    *
-   * The minimumLabelsOpened should not be greater than the number of labels.
-   *
-   * If 0, then the block is considered done when the block is experienced.
+   * **Must** be greater than 0 and **must** not be greater than the size of the labels array.
    *
    * If undefined, then the block is considered done when all the labels are opened.
    */
@@ -56,11 +54,15 @@ export interface label {
 
   /**
    * The x coordinate of this label.
+   *
+   * **Must** be greater than 0 and **must** not be greater than 100
    */
   x: number;
 
   /**
    * The y coordinate of this label.
+   *
+   * **Must** be greater than 0 and **must** not be greater than 100
    */
   y: number;
 }

@@ -8,16 +8,16 @@ import { BlockType } from "./block";
 /**
  * A questionnaire is a block that contains a number of questionnaire parts.
  *
- * A questionnaire is 'passed' when all the questionnaire parts with a
- * passCriteria meet their passCriteria.
+ * A questionnaire is *passed* when all the questionnaire parts with a
+ * `passCriteria` meet their `passCriteria`.
  *
- * A questionnaire is 'experienced' when the first questionnaire part is
+ * A questionnaire is *experienced* when the first questionnaire part is
  * displayed.
  *
- * A questionnaire is 'completed' when the 'last questionnaire part' is
- * 'finished'.
+ * A questionnaire is *completed* when the *last questionnaire part* is
+ * *finished*.
  *
- * A questionnaire is 'interacted' when the learner answers at least one
+ * A questionnaire is *interacted* when the learner answers at least one
  * question from the first questionnaire part.
  */
 export interface Questionnaire extends BlockType {
@@ -29,25 +29,25 @@ export interface Questionnaire extends BlockType {
   /**
    * @inheritdoc
    *
-   * - `passed` means that the questionnaire is done when it is 'passed'.
+   * - `passed` means that the questionnaire is done when it is *passed*.
    *
    * - `experienced` means that the questionnaire is done when it is
-   * 'experienced'.
+   * *experienced*.
    *
-   * - `completed` means that the questionnaire is done when it is 'completed'.
+   * - `completed` means that the questionnaire is done when it is *completed*.
    *
    * - `interacted` means that the questionnaire is done when it has been
-   * 'interacted' with.
+   * *interacted* with.
    *
-   * If the doneCriteria is `passed` there **must** be at least one
-   * questionnaire part in the questionnaire with a passCriteria.
+   * If the `doneCriteria` is `passed` there **must** be at least one
+   * questionnaire part in the questionnaire with a `passCriteria`.
    */
   doneCriteria?: "passed" | "experienced" | "completed" | "interacted";
 
   /**
    * Allows the learner to review the questions and their answers.
    *
-   * The review is only available when the questionnaire is 'completed'.
+   * The review is only available when the questionnaire is *completed*.
    *
    * The answers cannot be changed during the review.
    */
@@ -62,7 +62,7 @@ export interface Questionnaire extends BlockType {
    *
    * Note: If the `doneCriteria` is `passed` and the learner reaches the
    * maximum number of attempts without passing, the questionnaire cannot be
-   * 'passed'.
+   * *passed*.
    */
   attempts?: number;
 
@@ -72,13 +72,13 @@ export interface Questionnaire extends BlockType {
   first: QuestionnairePart;
 
   /**
-   * Settings of the feedback to display after the learner has 'completed'
+   * Settings of the feedback to display after the learner has *completed*
    * the questionnaire.
    *
    * The feedback will always include the:
    *
    * - number of attempts remaining
-   * - feedback for each questionnaire part that has feedback
+   * - feedback for each questionnaire part that has feedback defined
    */
   feedback: {
     text: LanguageMap;
@@ -86,29 +86,29 @@ export interface Questionnaire extends BlockType {
 }
 
 /**
- * A questionnaire part contains a number of questions. A 'scored questionnaire
- * part' can have a conditional next questionnaire part.
+ * A questionnaire part contains a number of questions. A *scored questionnaire
+ * part* can have a conditional next questionnaire part.
  *
- * A 'scored questionnaire part' has at least one question or answer with a
+ * A *scored questionnaire part* has at least one question or answer with a
  * score.
  *
- * An 'unscored questionnaire part' has no questions or answers with a score.
+ * An *unscored questionnaire part* has no questions or answers with a score.
  *
- * A 'scored questionnaire part' with a pass criteria can be passed or failed.
+ * A *scored questionnaire part* with a `passCriteria` can be passed or failed.
  *
- * A 'scored questionnaire part' without a pass criteria can only be scored.
+ * A *scored questionnaire part* without a `passCriteria` can only be scored.
  *
- * A 'last questionnaire part' has an undefined next property or there is no
+ * A *last questionnaire part* has an undefined next property or there is no
  * next questionnaire part to display for the learner's score.
  *
- * A questionnaire part is 'finished' when no more questions can be answered.
+ * A questionnaire part is *finished* when no more questions can be answered.
  *
  * No more questions can be answered when the learner has:
  *
  * - answered all of the questions in the questionnaire part
  * - answered the required number of questions as defined by the
- * numberOfQuestions property
- * - reached the time limit as defined by the timeLimit property
+ * `numberOfQuestions` property
+ * - reached the time limit as defined by the `timeLimit` property
  */
 interface QuestionnairePart {
   /**
@@ -120,6 +120,10 @@ interface QuestionnairePart {
 
   /**
    * Pass criteria of this questionnaire part.
+   *
+   * Only applicable if the questionnaire part is a *scored questionnaire part*.
+   *
+   * If undefined, the questionnaire part cannot be passed.
    */
   passCriteria?: {
     /**
@@ -128,9 +132,9 @@ interface QuestionnairePart {
     score: number;
 
     /**
-     * If true the scoring is inverted, this means that the learner must score
-     * less than or equal to the passing score. If false the scoring is not
-     * inverted, this means that the learner must score greater than or equal
+     * If true, the scoring is inverted, this means that the learner is required to score
+     * less than or equal to the passing score. If false, the scoring is not
+     * inverted, this means that the learner is required to score greater than or equal
      * to the passing score.
      */
     inverse?: boolean;
@@ -139,10 +143,11 @@ interface QuestionnairePart {
   /**
    * The number of questions to ask. The questions are selected randomly.
    *
-   * Must be greater than 0 and must not be greater than the number of
+   * **Must** be greater than 0 and **must** not be greater than the number of
    * questions in the questionnaire part.
    *
-   * If undefined, all questions are asked.
+   * If undefined, all questions are asked and displayed in the order they are
+   * defined in the questions array.
    */
   numberOfQuestions?: number;
 
@@ -156,7 +161,7 @@ interface QuestionnairePart {
    * The time limit is measured from the time the learner starts the
    * questionnaire part.
    *
-   * If the time limit is reached the learner cannot answer any more questions
+   * If the time limit is reached, the learner cannot answer any more questions
    * in this questionnaire part.
    *
    * Note: If the doneCriteria is `passed` and the learner reaches time limit
@@ -176,16 +181,20 @@ interface QuestionnairePart {
 
     /**
      * If true, the pass criteria is displayed.
+     *
+     * Only applicable if `passCriteria` is defined.
      */
     passCriteria?: boolean;
 
     /**
-     * Display the number of questions that the learner must answer.
+     * If true, display the number of questions that the learner is required to answer.
      */
     numberOfQuestions?: boolean;
 
     /**
      * If true, the time limit is displayed.
+     *
+     * Only applicable if `timeLimit` is defined.
      */
     timeLimit?: boolean;
   };
@@ -202,11 +211,15 @@ interface QuestionnairePart {
 
     /**
      * If true, the score is displayed.
+     *
+     * Only applicable if the questionnaire part is a *scored questionnaire part*.
      */
     score?: boolean;
 
     /**
      * If true, a pass or fail icon is displayed.
+     *
+     * Only applicable if `passCriteria` is defined.
      */
     icon?: boolean;
 
@@ -214,6 +227,8 @@ interface QuestionnairePart {
      * Text to display for a score or range of scores.
      *
      * The text will be displayed when greater than or equal to the score.
+     *
+     * Only applicable if the questionnaire part is a *scored questionnaire part*.
      */
     scoreText?: {
       [score: number]: LanguageMap | null;
@@ -223,7 +238,7 @@ interface QuestionnairePart {
   /**
    * The questions of this questionnaire.
    *
-   * There must be at least one question.
+   * There **must** be at least one question.
    */
   questions: [Question, ...Question[]];
 
@@ -233,7 +248,7 @@ interface QuestionnairePart {
    *
    * If undefined the learner is not directed to a next questionnaire part.
    *
-   * Only valid when the questionnaire part is 'scored'.
+   * Only applicable if the questionnaire part is a *scored questionnaire part*.
    */
   next?: {
     /**
@@ -275,48 +290,56 @@ export interface QuestionDefinition {
   feedback?: {
     /**
      * If true, the question feedback is shown to the learner immediately after answering the question.
+     *
+     * If false, the question feedback is shown to the learner when the questionnaire is reviewed.
      */
     immediate?: boolean;
 
     /**
      * If true, the correct answer is shown to the learner.
      *
-     * If true, immediate feedback **should** be true or questionnaire review **should** be true.
+     * Only applicable if:
+     *
+     * - `immediate` is `true` and/or questionnaire `review` is `true`
      */
     showCorrectResponse?: boolean;
 
     /**
      * The feedback for the learner when the answer is correct.
      *
-     * Only displayed when correctResponsePattern is defined.
+     * Only applicable if:
      *
-     * If defined, immediate feedback **should** be true or questionnaire review **should** be true.
+     * - `correctResponsePattern` is defined
+     * - `immediate` is `true` and/or questionnaire `review` is `true`
      */
     correctText?: LanguageMap;
 
     /**
      * The feedback for the learner when the answer is incorrect.
      *
-     * Only displayed when correctResponsePattern is defined.
+     * Only applicable if:
      *
-     * If defined, immediate feedback **should** be true or questionnaire review **should** be true.
+     * - `correctResponsePattern` is defined
+     * - `immediate` is `true` and/or questionnaire `review` is `true`
      */
     incorrectText?: LanguageMap;
 
     /**
-     * Show an icon to indicate if the learners answer is correct or incorrect.
+     * If true, an icon is shown to indicate if the learner's answer is correct or incorrect.
      *
-     * correctResponsePattern **should** be defined for this to have any effect.
+     * Only applicable if:
      *
-     * If true, immediate feedback **should** be true or questionnaire review **should** be true.
-     * * If true, immediate feedback **should** be true or questionnaire review **should** be true.
+     * - `correctResponsePattern` is defined
+     * - `immediate` is `true` and/or questionnaire `review` is `true`
      */
     successIcon?: boolean;
 
     /**
      * Text to display on the question.
      *
-     * If defined, immediate feedback **should** be true or questionnaire review **should** be true.
+     * Only applicable if:
+     *
+     * - `immediate` is `true` and/or questionnaire `review` is `true`
      */
     text?: LanguageMap;
   };
@@ -334,7 +357,7 @@ export interface QuestionDefinition {
   /**
    * Score of this QuestionDefinition. Takes precedence over the score of the QuestionInteractionComponents.
    *
-   * Only used when the Question has a correctResponsePattern.
+   * The Question **must** have a correctResponsePattern.
    */
   score?: number;
 

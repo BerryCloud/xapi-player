@@ -22,27 +22,29 @@ export interface ButtonGroup extends BlockType {
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * Minimum number of buttons that must be done to considered the button group done.
+   * Minimum number of buttons required to be done to consider the button group done.
    *
-   * Must be greater than 0 and must not be greater than the size of the
-   * buttons array. Only applicable if doneCriteria is set to completed.
+   * Only applicable if `doneCriteria` is set to `completed`.
+   *
+   * **Must** be greater than 0 and **must** not be greater than the size of the
+   * buttons array.
    *
    * If undefined, then the block is considered done when all the buttons are done.
    */
   minimumButtonsDone?: number;
 
   /**
-   * If true the only one button can be actioned.
+   * If true, only one button can be actioned.
    *
-   * A value of true is only valid if minimumButtonsDone is 1 or if the
-   * doneCriteria is interacted, experienced or undefined.
+   * If true, `minimumButtonsDone` **must** be 1 or the `doneCriteria` **must** be
+   * `interacted`, `experienced` or `undefined`.
    */
   single?: boolean;
 
   /**
    * Buttons of the button group.
    *
-   * There must be at least one button.
+   * There **must** be at least one button.
    */
   buttons: [Button, ...Button[]];
 }
@@ -57,12 +59,12 @@ export interface Button {
    * If the `action` property is a URL, then the button will open the URL.
    *
    * If the `action` property is a PathId, then the button will redirect the
-   * learner to the path. When the path is completed, the learner will be
+   * learner to the path. When the path is *completed*, the learner will be
    * redirected back to the original path.
    *
    * If the `action` property is a PathContainerId, then the button will
    * redirect the learner to the path container. The path container may be in a
-   * different path. When the path container is completed, it is the
+   * different path. When the path container is *completed*, it is the
    * responsibility of the implementation to determine what to do next.
    *
    * If the `action` is a URL then the button is considered done when it is

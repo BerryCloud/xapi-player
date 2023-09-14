@@ -25,7 +25,7 @@ export interface Process extends BlockType {
   /**
    * Steps of the process.
    *
-   * There must be at least two steps.
+   * There **must** be at least two steps.
    */
   steps: [Step, Step, ...Step[]];
 }
@@ -37,7 +37,7 @@ export interface Step extends Container {
   /**
    * Blocks of the step.
    *
-   * There must be at least one block.
+   * There **must** be at least one block.
    */
   blocks: [...(HTML | YouTube | ButtonGroup)[], HTML | YouTube | ButtonGroup];
 }

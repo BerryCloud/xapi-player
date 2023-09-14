@@ -14,13 +14,13 @@ export interface Flashcard extends BlockType {
   /**
    * Cards of the flashcard block.
    *
-   * There must be at least one card.
+   * There **must** be at least one card.
    */
   cards: [Card, ...Card[]];
 }
 
 /**
- * A card is a card in a flashcard block.
+ * A card of the cards in a flashcard block.
  */
 export interface Card {
   /**
@@ -34,6 +34,11 @@ export interface Card {
   back: CardSide;
 }
 
+/**
+ * A card side of a card.
+ *
+ * A card side must have at least one of the following properties: `text`, `description`, `image` or `audio`.
+ */
 export interface CardSide {
   /**
    * Text of the card side.
