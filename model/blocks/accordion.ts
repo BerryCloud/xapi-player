@@ -5,7 +5,7 @@ import { HTML } from "./html";
 import { YouTube } from "./youtube";
 
 /**
- * An accordion block is a block that contains a number of panels.
+ * An block that contains a number of panels.
  */
 export interface Accordion extends BlockType {
   /**

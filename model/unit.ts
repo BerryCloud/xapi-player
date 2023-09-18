@@ -4,46 +4,46 @@ import { Image } from "./image";
 import { Path, PathCompletedContainer, PathContainer } from "./path";
 
 /**
- * The unit is the main definition of a learning experience. It contains all the information needed to play the learning experience.
+ * The unit is the main definition of a learning experience, it contains all the information needed to play the learning experience.
  */
 export interface Unit {
   /**
-   * This definition version. The player will only play units with a version that it supports.
+   * The definition version. The player will only play units with a version that it supports.
    */
   version: string;
 
   /**
-   * The activity of this unit. This might be overridden by the launch mechanism.
+   * The activity of the unit. This might be overridden by the launch mechanism.
    */
   activity: Activity;
 
   /**
-   * The name of this unit.
+   * The name of the unit.
    */
   name: LanguageMap;
 
   /**
-   * The description of this unit.
+   * The description of the unit.
    */
   description: LanguageMap;
 
   /**
-   * The image of this unit.
+   * The image of the unit.
    */
   image: Image;
 
   /**
-   * The primary color of this unit.
+   * The primary color of the unit.
    */
   primaryColor: string;
 
   /**
-   * The accent color of this unit.
+   * The accent color of the unit.
    */
   accentColor: string;
 
   /**
-   * The warn color of this unit.
+   * The warn color of the unit.
    */
   warnColor: string;
 
@@ -53,17 +53,23 @@ export interface Unit {
   menu?: {};
 
   /**
-   * The containers of this unit.
+   * The containers of the unit.
+   *
+   * There **must** be at least one `PathCompletedContainer` which completes the unit.
    */
   containers: [...PathContainer[], PathCompletedContainer];
 
   /**
-   * The help path of this unit.
+   * The help path of the unit.
+   *
+   * If defined, the help path will be available to the learner in the navigation.
    */
   help?: Path;
 
   /**
-   * The paths of this unit.
+   * The paths of the unit.
+   *
+   * If defined, the paths **may** be available to learner in the navigation or using a `ButtonGroup` block.
    */
   paths?: Path[];
 }

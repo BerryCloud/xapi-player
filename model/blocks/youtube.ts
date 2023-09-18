@@ -1,25 +1,25 @@
 import { BlockType } from "./block";
 
 /**
- * A YouTube block.
+ * A block which displays a YouTube video player and loads a YouTube video.
  */
 export interface YouTube extends BlockType {
   /**
-   * The type of this block. This is always `youtube`. This is a type discriminator.
+   * The type of the block.
    */
   readonly type: "youtube";
 
   /**
    * @inheritdoc
    *
-   * - ```experienced``` means that the YouTube video controls were visible to the learner.
+   * - ```experienced``` means that the YouTube video player was visible to the learner.
    * - ```completed``` means that the YouTube video reached the end.
-   * - ```interacted``` means that the YouTube video controls were used.
+   * - ```interacted``` means that the YouTube video player controls were used.
    */
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * The `videoId` of the YouTube video.
+   *  The YouTube video ID that identifies the video that the player will load.
    */
   videoId: string;
 

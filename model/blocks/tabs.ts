@@ -5,7 +5,7 @@ import { HTML } from "./html";
 import { YouTube } from "./youtube";
 
 /**
- * A tabs block is a block that contains a series of tabs. A single tab is always visible.
+ * A series of tabs which **may** contain `HTML` or `YouTube` blocks, where single tab is always visible.
  */
 export interface Tabs extends BlockType {
   /**
@@ -17,45 +17,47 @@ export interface Tabs extends BlockType {
    * @inheritdoc
    *
    * - ```experienced``` means that the block was visible to the learner.
-   * - ```completed``` means that the minimum number of tabs have been done.
+   * - ```completed``` means that the number of tabs which are done is at least `minimumTabsDone`.
    * - ```interacted``` means that at least one other tab was opened.
    */
   doneCriteria?: "experienced" | "completed" | "interacted";
 
   /**
-   * Minimum number of tabs that are required to be done in order for the block to be considered done.
+   * The minimum number of `Tab` containers that are required to be done in order for the block to be considered done.
    *
-   * Only applicable if `doneCriteria` is completed.
+   * Only applicable if `doneCriteria` is `completed`.
    *
-   * **Must** be greater than 1 and **must** not be greater than the size of the tabs
+   * **Must** be greater than 0 and **must not** be greater than the size of the `tabs`
    * array.
    *
-   * If undefined, then the block is considered done when all the tabs are done.
+   * If undefined, then the block is considered done when all the `Tab` containers are done.
    */
   minimumTabsDone?: number;
 
   /**
-   * Tabs of the block.
+   * The tab containers of the block.
    *
    * There **must** be at least one tab.
    *
-   * The tabs are shown in the order they are defined.
+   * The tabs are displayed in the order they are defined.
    *
    */
   tabs: [Tab, ...Tab[]];
 }
 
 /**
- * A tab is a tab of a tabs block.
+ * A collection of ordered `Block` objects of type `HTML` and `YouTube`.
+ *
+ * A tab is considered done when the blocks of the tab are done. It cannot be done until it is visible.
  */
 export interface Tab extends Container {
   /**
-   * Name of this tab.
+   * The name of the tab.
    */
   name: LanguageMap;
 
   /**
-   * Blocks of this tab.
+   * the blocks of the tab.
    *
    * There **must** be at least one block.
    */

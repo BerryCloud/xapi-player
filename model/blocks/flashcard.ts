@@ -3,7 +3,7 @@ import { Image } from "../image";
 import { BlockType } from "./block";
 
 /**
- * A flashcard block is a block that contains a number of cards.
+ * A block that contains a number of cards which can be actioned to display alternative content.
  */
 export interface Flashcard extends BlockType {
   /**
@@ -12,51 +12,62 @@ export interface Flashcard extends BlockType {
   readonly type: "flashcard";
 
   /**
-   * Cards of the flashcard block.
+   * @inheritdoc
+   *
+   * - ```experienced``` means that the block was visible to the learner.
+   * - ```completed``` means that all of the cards were actioned.
+   * - ```interacted``` means that at least one card was actioned.
+   */
+  doneCriteria?: "experienced" | "completed" | "interacted";
+
+  /**
+   * The cards of the flashcard block.
    *
    * There **must** be at least one card.
+   *
+   * The cards are displayed in the order they are defined.
    */
   cards: [Card, ...Card[]];
 }
 
 /**
- * A card of the cards in a flashcard block.
+ * A card with two sides of content which is alternated between when actioned.
  */
 export interface Card {
   /**
-   * Front side of the card.
+   * The card side to initially display.
    */
   front: CardSide;
 
   /**
-   * Back side of the card.
+   * The reverse card side to display when the card is actioned.
    */
   back: CardSide;
 }
 
 /**
- * A card side of a card.
+ * The content of a card side.
  *
  * A card side must have at least one of the following properties: `text`, `description`, `image` or `audio`.
  */
 export interface CardSide {
   /**
-   * Text of the card side.
+   * The text of the card side.
    */
   text?: LanguageMap;
 
   /**
-   * Description of the card side.
+   * The description of the card side.
    */
   description?: LanguageMap;
 
   /**
-   * Image of the card side.
+   * The image of the card side.
    */
   image?: Image;
 
   /**
-   * Audio of the card side.
+   * The audio of the card side.
    */
   audio?: string;
 }

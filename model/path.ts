@@ -2,76 +2,80 @@ import { Activity, LanguageMap } from "@berry-cloud/ngx-xapi";
 import { Container } from "./container";
 
 /**
- * A path of a unit.
+ * A collection of ordered `PathContainer` objects.
  *
- * A path is considered done when all of its containers are done.
+ * A path is considered _done_ when the `containers` are done.
  */
 export interface Path {
   /**
-   * The id of this path.
+   * The ID of the path.
    */
   id: PathId;
 
   /**
-   * The name of this path.
+   * The name of the path.
    *
-   * A path without a name is a hidden path.
+   * If defined, the path will be displayed to the learner in the navigation.
+   *
+   * If undefined, the path will not be displayed to the learner in the navigation.
    */
   name?: LanguageMap;
 
   /**
-   * The activity of this path.
+   * The activity of the path.
    *
-   * If undefined, no statements about this path will be sent to the LRS.
+   * If undefined, no statements about the path will be sent to the LRS.
    */
   activity?: Activity;
 
   /**
-   * The containers of this path.
+   * The ordered `PathContainer` objects within the path.
+   *
+   * There **must** be at least one `PathContainer`.
    */
   containers: [...PathContainer[], PathContainer];
 }
 
 /**
- * A path container is a container that can be used in a path.
+ * A container that can be used in a path.
  */
 export interface PathContainer extends Container {
   /**
-   * The id of this container.
+   * The ID of the container.
    */
   readonly id: PathContainerId;
   /**
-   * The name of this container.
+   * The container name to show in the navigation if the path is displayed.
    */
   name: LanguageMap;
 
   /**
-   * If true, the unit will be considered complete when this container is done.
+   * If true, the `Unit` will be considered complete when the container is done.
    */
   complete?: boolean;
 }
 
 /**
- * A path completed container is a container that completes the unit.
+ * A path container that completes the unit.
  */
 export interface PathCompletedContainer extends PathContainer {
   /**
-   * If true, the unit will be *completed* when this container is done.
+   * If true, the unit will be considered complete when the container is done.
    */
   completed: true;
 }
 
 /**
- * Human readable id. May only contain characters that are allowed in a URI but do not have a reserved purpose (as defined in RFC 3986).
+ * Human readable ID. May only contain characters that are allowed in a URI but do not have a reserved purpose (as defined in RFC 3986).
  */
 export type PathId = `paths/${string}`;
 
 /**
- * A path container id is used to identify a container.
+ * An ID used to identify a container within a path.
  *
- * The id:
+ * The ID:
  * - **must** be unique in the unit.
  * - is immutable so it can be used as a key.
- * - **must** be url friendly.
+ * - **must** be URL friendly.
  */
 export type PathContainerId = `containers/${string}`;

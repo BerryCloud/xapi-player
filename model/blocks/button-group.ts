@@ -4,7 +4,7 @@ import { PathContainerId, PathId } from "../path";
 import { BlockType } from "./block";
 
 /**
- * A button group block is a block that contains a number of buttons.
+ * A block that contains a number of buttons.
  */
 export interface ButtonGroup extends BlockType {
   /**

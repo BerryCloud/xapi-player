@@ -11,6 +11,9 @@ import { Tabs } from "./tabs";
 import { Video } from "./video";
 import { YouTube } from "./youtube";
 
+/**
+ * A block is a unit of content. There are different types of blocks. Each block type has its own parameters.
+ */
 export type BlockType = {
   /**
    * The type of this block.
@@ -23,7 +26,7 @@ export type BlockType = {
   activity?: Activity;
 
   /**
-   * The done criteria of this block. When the criteria is met the block is considered done.
+   * The done criteria of this block. A block is considered _done_ when the criteria is met.
    *
    * Once a block is done it cannot be undone.
    *
