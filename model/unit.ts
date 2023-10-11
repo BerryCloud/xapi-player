@@ -4,7 +4,8 @@ import { Image } from "./image";
 import { Path, PathCompletedContainer, PathContainer } from "./path";
 
 /**
- * The unit is the main definition of a learning experience, it contains all the information needed to play the learning experience.
+ * The unit is the main definition of a learning experience, it contains all the
+ * information needed to play the learning experience.
  */
 export interface Unit {
   /**
@@ -55,7 +56,8 @@ export interface Unit {
   /**
    * The containers of the unit.
    *
-   * There **must** be at least one `PathCompletedContainer` which completes the unit.
+   * There **must** be at least one `PathCompletedContainer` which completes the
+   * unit.
    */
   containers: [...PathContainer[], PathCompletedContainer];
 

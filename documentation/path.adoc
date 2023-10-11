@@ -1,33 +1,43 @@
 = Path
 
-== Description
+A path is a collection of ordered containers that a learner can navigate through.
 
 == Parameters
 
-[cols="1,1,1,1"]
-|===
-| Name | Type | Description | Required
-| id | string | The id of the path | Yes
-| name | LanguageMap | The name of the path | Yes
-| activity | Activity | The activity of the path | Yes
-| containers | PathContainer array | The containers of the path | Yes
-|===
-
-== PathContainer
-
-== Description
-
-=== Parameters
+All paths have the following parameters:
 
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| id | string | Identifier of the path container | true
-| name | LanguageMap | Name of the path container | true
-| completed | boolean | Completed status of the path container | true
-| activity | Activity | Activity of the path container | false
-| blocks | Block array | Blocks of the path container | true
+| `id` | <<pathId, `PathID`>> | Identifier of the `Path` | Yes
+| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the path | No
+| `activity` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition[Activity]| Activity of the path | No
+| `containers` | xref:container.adoc#pathContainer[`PathContainer`]`array` | Containers of the path | Yes
 |===
 
+== Restrictions
 
+A path **must** contain at least one xref:container.adoc#pathContainer[`PathContainer`].
 
+== Details
+
+If `name` is defined, an implementation **should** provide a way for the learner to navigate to the path.
+If `name` is undefined, an implementation **should** only allow navigation to the path via a xref:block.adoc#
+button[`Button`].
+
+If `activity` is undefined, no statements about the path will be sent to the LRS, however, containers and blocks may still send statements.
+
+An implementation **should** display the path containers in the order they are defined in the `containers` array.
+
+[#pathId]
+== PathId
+
+A human readable string ID that uniquely identifies a path.
+
+=== Restrictions
+
+The `pathId` **must**:
+
+- be a URI prefixed with `paths/`
+- be unique in the unit
+- only contain characters that are allowed in a URI but do not have a reserved purpose (as defined in RFC 3986)

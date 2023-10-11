@@ -37,6 +37,8 @@ export interface Path {
 }
 
 /**
+ * @inheritdoc
+ *
  * A container that can be used in a path.
  */
 export interface PathContainer extends Container {

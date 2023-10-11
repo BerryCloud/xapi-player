@@ -1,28 +1,42 @@
 = Unit 
 
-== Properties
+The launchable learning content containing a collection of ordered containers that the user can navigate through.
+
+== Parameters
+
+All units have the following parameters:
 
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
 | version | string | Version of the unit definition | Yes
-| name | object | Name of the unit | Yes
-| description | object | Description of the unit | Yes
-| activity | object | Activity of the unit | Yes
-| image | object | Image of the unit | Yes
+| name | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the unit | Yes
+| description | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Description of the unit | Yes
+| activity | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition[Activity]| Activity of the unit | Yes
+| image | xref:image.adoc[Image]  | Image of the unit | Yes
 | primaryColor | string | Primary color of the unit | Yes
 | accentColor | string | Accent color of the unit | Yes
 | warnColor | string | Warn color of the unit | Yes
-| containers | array | Containers of the unit | Yes
-| help | object | Help path of the unit | No
-| paths | array | Paths of the unit | No
+| sectionTitle | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Title of the main path | No
+| containers | xref:container.adoc#pathContainer[`PathContainer`]`array` | Containers of the unit | Yes
+| help | xref:container.adoc#pathContainer[`PathContainer`]`array`  | Help path of the unit | No
+| paths | xref:path.adoc#path[`Path`]`array`  | Additional paths of the unit | No
 |===
 
 == Restrictions
 
-The containers must contain at least one container. At least one of the containers must be marked as completed.
+There **must** be at least one xref:container.adoc#pathContainer[`PathContainer`] in the `containers` array. 
 
-The name must be a valid LanguageMap.
+At least one of the xref:container.adoc#pathContainer[`PathContainer`] objects **must** have the `unitCompletion` property set to `true`.
+
+== Details
+
+A unit is considered completed when at least one of the xref:container.adoc#pathContainer[`PathContainer`] objects which has the `unitCompletion` property set to `true` is done.
+
+A unit is considered passed if a xref:block.adoc#questionnairePart[`QuestionnairePart`] has the `unitPass` property set to `true` and the user has passed the questionnaire.
+
+If a unit has a `help` path, an implementation **should** provide a way for the user to access it.
+
 == Examples
 
 === Minimal unit definition

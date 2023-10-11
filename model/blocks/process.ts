@@ -5,7 +5,8 @@ import { HTML } from "./html";
 import { YouTube } from "./youtube";
 
 /**
- * A series of steps which **may** contain `HTML`, `YouTube` or `ButtonGroup` blocks, where only one step is visible at a time.
+ * A series of steps which **may** contain `HTML`, `YouTube` or `ButtonGroup`
+ * blocks, where only one step is visible at a time.
  */
 export interface Process extends BlockType {
   /**

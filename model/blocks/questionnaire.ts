@@ -1,21 +1,19 @@
-import {
-  Activity,
-  InteractionType,
-  LanguageMap,
-} from "@berry-cloud/ngx-xapi/model";
+import { Activity, InteractionType, LanguageMap } from "@berry-cloud/ngx-xapi/model";
 import { BlockType } from "./block";
+import { Block } from "./block";
 
 /**
- * A questionnaire is a block that contains a number of `QuestionnairePart` objects.
+ * A questionnaire is a type of block that has at least one `QuestionnairePart`.
  *
- * A questionnaire is _passed_ when all the questionnaire parts with a
- * `passCriteria` meet their `passCriteria`.
+ * A questionnaire is _passed_ when section 1 has met its `passCriteria` and
+ * all subsequent sections (if any) have also met their `passCriteria`.
  *
- * A questionnaire is _experienced_ when the first questionnaire part is
+ * A questionnaire is _experienced_ when the `firstQuestionnairePart` is
  * displayed.
  *
- * A questionnaire is _completed_ when the last questionnaire part is
- * _finished_.
+ * A questionnaire is _completed_ when the QuestionnairePart is
+ * _finished_ and there is no QuestionnairePart.next defined for the learner's
+ * score.
  *
  * A questionnaire is _interacted_ when the learner answers at least one
  * question from the first questionnaire part.
@@ -69,7 +67,7 @@ export interface Questionnaire extends BlockType {
   /**
    * The first part of the questionnaire.
    */
-  first: QuestionnairePart;
+  firstQuestionnairePart: QuestionnairePart;
 
   /**
    * Settings of the feedback to display after the learner has completed
@@ -140,6 +138,11 @@ interface QuestionnairePart {
      * required to score greater than or equal to the `score` property.
      */
     inverse?: boolean;
+
+    /**
+     * If true, passing the questionnaire part will pass the unit.
+     */
+    passUnit?: boolean;
   };
 
   /**
@@ -311,8 +314,8 @@ export interface QuestionDefinition {
   feedback?: {
     /**
      * If true, the question feedback is also shown to the learner immediately after answering the question.
-     *
-     * If `false`, the feedback is only shown to the learner when the questionnaire is reviewed.
+     
+     * If false, the feedback is only shown to the learner when the questionnaire is reviewed.
      */
     immediate?: boolean;
 
@@ -334,7 +337,7 @@ export interface QuestionDefinition {
      * - `correctResponsePattern` is defined
      * - `immediate` is `true` or `Questionnaire.review` is `true`
      */
-    correctText?: LanguageMap;
+    correctResponseText?: LanguageMap;
 
     /**
      * The feedback for the learner when the answer is incorrect.
@@ -344,7 +347,7 @@ export interface QuestionDefinition {
      * - `correctResponsePattern` is defined
      * - `immediate` is `true` or `Questionnaire.review` is `true`
      */
-    incorrectText?: LanguageMap;
+    incorrectResponseText?: LanguageMap;
 
     /**
      * If true, an icon is shown to indicate if the learner's answer is correct or incorrect.

@@ -2,13 +2,17 @@ import { Activity, LanguageMap } from "@berry-cloud/ngx-xapi";
 import { Block } from "./blocks/block";
 
 /**
- * A collection of ordered `Block` objects.
+ * A collection of ordered {@link Block `Block`} objects.
  *
- * A container is considered _done_ when it is visible and all `Block` objects within `blocks` are done.
+ * A container is considered _done_ when it is visible and all {@link Block `block`} objects within `blocks` are done.
  *
  * Once a container is done it cannot be undone.
  *
- * The definition of visible is player implementation specific.
+ * The definition of _visible_ is player implementation specific.
+ *
+ * Visible, learner is aware and had opportunity to consume content
+ *
+ * @see PathContainer
  */
 export interface Container {
   /**
