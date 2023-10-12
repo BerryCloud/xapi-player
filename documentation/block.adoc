@@ -1,12 +1,11 @@
-:toc: auto
-:toclevels: 4
 
 [#block]
-= Block
+== Block
 
 A unit of content, there are different types each with their own parameters.
 
-== Parameters
+[discrete]
+=== Parameters
 
 All blocks have the following parameters:
 
@@ -18,7 +17,8 @@ All blocks have the following parameters:
 | `doneCriteria` | `string` | Criteria to determine if the block is done | No
 |===
 
-== Restrictions
+[discrete]
+=== Restrictions
 
 The `type` property **must** be set to one of the following string values:
 
@@ -36,7 +36,8 @@ The `type` property **must** be set to one of the following string values:
 
 Different block types may have additional restrictions.
 
-== Details
+[discrete]
+=== Details
 
 If `activity` is undefined, no statements about the block are sent to the LRS.
 
@@ -46,7 +47,7 @@ The `type` property is used to determine the type of the `Block`. The type of th
 
 Once a block is done it cannot be undone. 
 
-== Types
+== Block Types
 
 [#accordion]
 === Accordion
@@ -215,7 +216,7 @@ A button **must** have at least one of the following properties: `text` or `imag
 
 ===== Details
 
-If the `action` property is a URL, then the button will open the URL. If the `action` property is a `PathId`, then the button will redirect the learner to the xref:path.adoc[`Path`]. When the xref:path.adoc[`Path`] is completed, the learner will be redirected back to the original xref:path.adoc[`Path`]. If the `action` property is a `PathContainerId`, then the button will redirect the learner to the xref:path.adoc#pathContainer[`PathContainer`]. The xref:path.adoc#pathContainer[`PathContainer`] may be in a different xref:path.adoc[`Path`]. When the xref:path.adoc#pathContainer[`PathContainer`] is completed, it is the responsibility of the implementation to determine what to do next. If the `action` is a URL then the button is considered done when it is actioned. If the `action` is a `PathId` then the button is considered done when the xref:path.adoc[`Path`] is done. If the `action` is a `PathContainerId` then the button is considered done when it is actioned.
+If the `action` property is a URL, then the button will open the URL. If the `action` property is a `PathId`, then the button will redirect the learner to the xref:path.adoc[`Path`]. When the xref:path.adoc[`Path`] is completed, the learner will be redirected back to the original xref:path.adoc[`Path`]. If the `action` property is a `PathContainerId`, then the button will redirect the learner to the xref:container.adoc#container[`Container`]. The xref:path.adoc#container[`Container`] may be in a different xref:path.adoc[`Path`]. When the xref:path.adoc#container[`Container`] is completed, it is the responsibility of the implementation to determine what to do next. If the `action` is a URL then the button is considered done when it is actioned. If the `action` is a `PathId` then the button is considered done when the xref:path.adoc[`Path`] is done. If the `action` is a `PathContainerId` then the button is considered done when it is actioned.
 
 [#flashcardGroup]
 === FlashcardGroup
@@ -922,331 +923,3 @@ The `id` property **must** be a valid YouTube video ID.
 If the `doneCriteria` is set to `experienced`, then the YouTube player is considered done when the YouTube player is visible.
 If the `doneCriteria` is set to `completed`, then the YouTube player is considered done when the video is played until the end.
 If the `doneCriteria` is set to `interacted`, then the YouTube player is considered done when the video is played.
-
-== Examples
-
-=== Example of an Accordion Block
-
-[source, json]
-----
-{
-  "type": "accordion",
-  "doneCriteria": "completed",
-  "minimumPanelsDone": 2,
-  "panels": [
-    {
-      "name": {
-        "en-US": "Panel 1"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/panel1.html"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Panel 2"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/panel2.html"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Panel 3"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/panel3.html"
-        }
-      ]
-    }
-  ]
-}
-----
-
-=== Example of an Audio Block
-
-[source, json]
-----
-{
-  "type": "audio",
-  "doneCriteria": "completed",
-  "url": "https://www.example.com/audio.mp3"
-}
-----
-
-=== Example of a Button Group Block
-
-[source, json]
-----
-{
-  "type": "button-group",
-  "doneCriteria": "completed",
-  "minimumButtonsDone": 2,
-  "buttons": [
-    {
-      "name": {
-        "en-US": "Button 1"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/button1.html"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Button 2"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/button2.html"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Button 3"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/button3.html"
-        }
-      ]
-    }
-  ]
-}
-----
-
-=== Example of a Flashcard Block
-
-[source, json]
-----
-{
-  "cards": [
-    {
-      "front": {
-        "en-US": {
-          "text": "Front of Card 1"
-        }
-      },
-      "back": {
-        "en-US": {
-          "text": "Back of Card 1"
-        }
-      }
-    },
-    {
-      "front": {
-        "en-US": {
-          "text": "Front of Card 2"
-        }
-      },
-      "back": {
-        "en-US": {
-          "text": "Back of Card 2"
-        }
-      }
-    },
-    {
-      "front": {
-        "en-US": {
-          "text": "Front of Card 3"
-        }
-      },
-      "back": {
-        "en-US": {
-          "text": "Back of Card 3"
-        }
-      }
-    }
-  ]
-}
-----
-
-=== Example of an HTML Block
-
-[source, json]
-----
-{
-  "type": "html",
-  "doneCriteria": "experienced",
-  "url": "https://www.example.com/html.html"
-}
-----
-
-=== Example of a Labeled Image Block
-
-[source, json]
-----
-{
-  "type": "labeled-image",
-  "image": "https://www.example.com/image.png",
-  "labels": [
-    {
-      "name": {
-        "en-US": "Label 1"
-      },
-      "description": {
-        "en-US": "Description of Label 1"
-      },
-      "x": 100,
-      "y": 200
-    },
-    {
-      "name": {
-        "en-US": "Label 2"
-      },
-      "description": {
-        "en-US": "Description of Label 2"
-      },
-      "x": 300,
-      "y": 400
-    },
-    {
-      "name": {
-        "en-US": "Label 3"
-      },
-      "description": {
-        "en-US": "Description of Label 3"
-      },
-      "x": 500,
-      "y": 600
-    }
-  ]
-}
-----
-
-=== Example of a Process Block
-
-[source, json]
-----
-{
-  "type": "process",
-  "doneCriteria": "completed",
-  "minimumStepsDone": 2,
-  "steps": [
-    {
-      "name": {
-        "en-US": "Step 1"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/step1.html"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Step 2"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/step2.html"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Step 3"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/step3.html"
-        }
-      ]
-    }
-  ]
-}
-----
-
-=== Example of a Questionnaire Block
-
-[source, json]
-
-
-=== Example of a Tabs Block
-
-[source, json]
-----
-{
-  "type": "tabs",
-  "doneCriteria": "completed",
-  "minimumTabsDone": 2,
-  "tabs": [
-    {
-      "name": {
-        "en-US": "Tab 1"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/tab1.html"
-        },
-        {
-          "type": "youtube",
-          "id": "123456789"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Tab 2"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/tab2.html"
-        }
-      ]
-    },
-    {
-      "name": {
-        "en-US": "Tab 3"
-      },
-      "blocks": [
-        {
-          "type": "html",
-          "url": "https://www.example.com/tab3.html"
-        }
-      ]
-    }
-  ]
-}
-----
-
-=== Example of a Video Block
-
-[source, json]
-----
-{
-  "type": "video",
-  "doneCriteria": "completed",
-  "url": "https://www.example.com/video.mp4"
-}
-----
-
-=== Example of a YouTube Block
-
-[source, json]
-----
-{
-  "type": "youtube",
-  "doneCriteria": "completed",
-  "id": "123456789"
-}
-----
-

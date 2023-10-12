@@ -1,32 +1,36 @@
-:toc: auto
-:toclevels: 4
 
-[#pathContainer]
-= PathContainer
 
-A collection of ordered blocks within a path or unit that the learner can navigate through.
+[#container]
+== Container
 
-== Parameters
+A collection of ordered blocks that the learner can navigate through.
+
+[discrete]
+=== Parameters
 
 [cols="1,1,1,1"]
 |===
 | Name | Type | Description | Required
-| `id` | <<pathContainerId, `PathContainerId`>> | Identifier of the path container | Yes
-| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the path container | Yes
+| `id` | <<pathContainerId, `PathContainerId`>> | Identifier of the container | Yes
+| `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the container | Yes
 | `activity` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition[Activity]  | Activity of the container | No
-| `unitCompletion` | boolean | If true, the unit will be considered complete when the path container is done | No
+| `unitCompletion` | boolean | If true, the unit will be considered complete when the  container is done | No
 | `blocks` | xref:block.adoc#Block[`Block`] `array`  | Blocks of the container | Yes
 |===
 
-== Restrictions
+[discrete]
+=== Restrictions
 
 There **must** be at least one xref:block.adoc#Block[`Block`] in the `blocks` array.
 
-In the xref:unit.adoc#Unit[`Unit`], there **must** be at least one `PathContainer` with `unitCompletion` set to `true`.
+In the xref:unit.adoc#Unit[`Unit`], there **must** be at least one `Container` with `unitCompletion` set to `true`.
 
-== Details
+[discrete]
+=== Details 
 
-If the path container is directly within the unit, an implementation **should** display the `name` of the container in the navigation. If the path container is within a path which is displayed in the navigation, the `name` of the container **should** be displayed as a sub-item of the path.
+A container can be directly within the unit or within a path.
+
+If the container is directly within the unit, an implementation **should** display the `name` of the container in the navigation. If the container is within a path which is displayed in the navigation, the `name` of the container **should** be displayed as a sub-item of the path.
 
 If `activity` is undefined, no statements about the container will be sent to the LRS, however, blocks within the container **may** still send statements.
 
@@ -36,13 +40,13 @@ Once a container is done, an implementation **must** allow the learner to naviga
 
 
 [#pathContainerId]
-== PathContainerId
+=== PathContainerId
 
 A human readable string ID that uniquely identifies a container.
 
-=== Restrictions
+==== Restrictions
 
-The `containerId` **must**:
+The `pathContainerId` **must**:
 
 - be a URI prefixed with `containers/`
 - be unique in the unit

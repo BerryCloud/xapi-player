@@ -1,8 +1,9 @@
-= Unit 
+== Unit 
 
 The launchable learning content containing a collection of ordered containers that the user can navigate through.
 
-== Parameters
+[discrete]
+=== Parameters
 
 All units have the following parameters:
 
@@ -18,66 +19,23 @@ All units have the following parameters:
 | accentColor | string | Accent color of the unit | Yes
 | warnColor | string | Warn color of the unit | Yes
 | sectionTitle | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Title of the main path | No
-| containers | xref:container.adoc#pathContainer[`PathContainer`]`array` | Containers of the unit | Yes
-| help | xref:container.adoc#pathContainer[`PathContainer`]`array`  | Help path of the unit | No
+| containers | xref:container.adoc#container[`Container`]`array` | Containers of the unit | Yes
+| help | xref:container.adoc#container[`Container`]`array`  | Help path of the unit | No
 | paths | xref:path.adoc#path[`Path`]`array`  | Additional paths of the unit | No
 |===
 
-== Restrictions
+[discrete]
+=== Restrictions
 
-There **must** be at least one xref:container.adoc#pathContainer[`PathContainer`] in the `containers` array. 
+There **must** be at least one xref:container.adoc#container[`Container`] in the `containers` array. 
 
-At least one of the xref:container.adoc#pathContainer[`PathContainer`] objects **must** have the `unitCompletion` property set to `true`.
+At least one of the xref:container.adoc#container[`Container`] objects **must** have the `unitCompletion` property set to `true`.
 
-== Details
+[discrete]
+=== Details
 
-A unit is considered completed when at least one of the xref:container.adoc#pathContainer[`PathContainer`] objects which has the `unitCompletion` property set to `true` is done.
+A unit is considered completed when at least one of the xref:container.adoc#container[`Container`] objects which has the `unitCompletion` property set to `true` is done.
 
 A unit is considered passed if a xref:block.adoc#questionnairePart[`QuestionnairePart`] has the `unitPass` property set to `true` and the user has passed the questionnaire.
 
 If a unit has a `help` path, an implementation **should** provide a way for the user to access it.
-
-== Examples
-
-=== Minimal unit definition
-
-A minimal unit definition is composed of the following properties:
-version, name, description, activity, image, primaryColor, accentColor, warnColor, containers.
-
-[source,json]
-----
-{
-   "version":"1.0.0",
-   "name":{
-      "en":"Introduction to Atmospheric Circulation"
-   },
-   "description":{
-      "en":"This course will introduce the concepts of atmospheric circulation and how heat is transferred around the globe."
-   },
-   "image":{
-      "url":"data/atmospheric-circulation.jpg"
-   },
-   "activity":{
-      "id":"introduction-to-atmospheric-circulation"
-   },
-   "primaryColor":"#3f51b5",
-   "accentColor":"#ff4081",
-   "warnColor":"#f44336",
-   "containers":[
-      {
-         "id":"containers/summary",
-         "name":{
-            "en":"Summary"
-         },
-         "blocks":[
-            {
-               "type":"html",
-               "url":"data/summary/header.html"
-            }
-         ],
-         "completed":true
-      }
-   ]
-};
-----
-

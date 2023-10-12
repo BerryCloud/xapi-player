@@ -1,8 +1,9 @@
-= Image
+== Image
 
-== Description
+An image to display for the unit or within an HTML block.
 
-== Parameters
+[discrete]
+=== Parameters
 
 [cols="1,1,1,1"]
 |===
@@ -13,5 +14,10 @@
 | author.homepage | string | The homepage of the author | No
 | provider.name | string | The name of the provider | No
 | provider.homepage | string | The homepage of the provider | No
+| blurhash | string | The blurhash of the image | No
 |===
 
+[discrete]
+=== Restrictions
+
+The `url` property **must** be a valid URL.
