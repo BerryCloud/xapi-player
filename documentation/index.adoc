@@ -1,0 +1,14 @@
+= xAPI Player specification
+Thomas Turrell-Croft; Katie Noake; István Rátkai
+:toc:
+:toclevels: 2
+
+include::unit.adoc[]
+
+include::container.adoc[]
+
+include::image.adoc[]
+
+include::path.adoc[]
+
+include::block.adoc[]

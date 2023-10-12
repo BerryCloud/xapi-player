@@ -1,0 +1,11 @@
+{
+  "cSpell.words": [
+    "actioned",
+    "adoc",
+    "unscored"
+  ],
+
+  "[typescript]": {
+    "editor.rulers": [80]
+  }
+}
