@@ -37,7 +37,7 @@ jobs:
 
       - run: |
           gem install asciidoctor 
-          asciidoctor -R ./docs -D docs *.adoc
+          asciidoctor -R ./docs -D docs index.adoc
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
