@@ -38,13 +38,13 @@ jobs:
       - run: |
           gem install asciidoctor 
           cd docs
-          asciidoctor -D docs2 *.adoc
+          asciidoctor -D output *.adoc
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
-          path: "./docs"
+          path: "./output"
 
   # Deployment job
   deploy:
