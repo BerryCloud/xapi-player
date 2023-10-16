@@ -35,7 +35,9 @@ jobs:
           ruby-version: "3.2" # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-      - run: gem install asciidoctor -r asciidoctor -B ./docs -D docs *.adoc
+      - run: |
+          gem install asciidoctor 
+          asciidoctor -B ./docs -D docs *.adoc
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
