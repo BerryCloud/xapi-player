@@ -40,17 +40,11 @@ jobs:
           cd docs
           asciidoctor -D output *.adoc
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./docs/output
-          destination: ./_site
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
-          path: "./_site"
+          path: "./docs/output"
 
   # Deployment job
   deploy:
