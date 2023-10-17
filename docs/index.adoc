@@ -2,6 +2,7 @@
 Thomas Turrell-Croft; Katie Noake; István Rátkai
 :toc:
 :toclevels: 2
+:toc: left
 
 include::unit.adoc[]
 
