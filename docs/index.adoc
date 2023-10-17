@@ -6,10 +6,13 @@ Thomas Turrell-Croft; Katie Noake; István Rátkai
 
 include::unit.adoc[]
 
+include::path.adoc[]
+
 include::container.adoc[]
+
+include::block.adoc[]
 
 include::image.adoc[]
 
-include::path.adoc[]
 
-include::block.adoc[]
+

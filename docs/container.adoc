@@ -15,15 +15,15 @@ A collection of ordered blocks that the learner can navigate through.
 | `name` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#42-language-maps[LanguageMap] | Name of the container | Yes
 | `activity` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition[Activity]  | Activity of the container | No
 | `unitCompletion` | boolean | If true, the unit will be considered complete when the  container is done | No
-| `blocks` | xref:block.adoc#Block[`Block`] `array`  | Blocks of the container | Yes
+| `blocks` | xref:block.adoc#block[`Block`] `array`  | Blocks of the container | Yes
 |===
 
 [discrete]
 === Restrictions
 
-There **must** be at least one xref:block.adoc#Block[`Block`] in the `blocks` array.
+There **must** be at least one xref:block.adoc#block[`Block`] in the `blocks` array.
 
-In the xref:unit.adoc#Unit[`Unit`], there **must** be at least one `Container` with `unitCompletion` set to `true`.
+In the xref:unit.adoc#unit[`Unit`], there **must** be at least one xref:container.adoc#container[`Container`] with `unitCompletion` set to `true`.
 
 [discrete]
 === Details 

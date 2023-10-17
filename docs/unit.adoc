@@ -1,3 +1,4 @@
+[#unit]
 == Unit 
 
 The launchable learning content containing a collection of ordered containers that the user can navigate through.
@@ -36,6 +37,6 @@ At least one of the xref:container.adoc#container[`Container`] objects **must** 
 
 A unit is considered completed when at least one of the xref:container.adoc#container[`Container`] objects which has the `unitCompletion` property set to `true` is done.
 
-A unit is considered passed if a xref:block.adoc#questionnairePart[`QuestionnairePart`] has the `unitPass` property set to `true` and the user has passed the questionnaire.
+A unit is considered passed if a xref:block.adoc#questionnairePart[`QuestionnairePart`] has the `unitPass` property set to `true` and the user has passed the questionnaire part.
 
 If a unit has a `help` path, an implementation **should** provide a way for the user to access it.
