@@ -1,5 +1,5 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+# Workflow for building and deploying an asciidoctor site to GitHub Pages
+name: Deploy asciidoctor site to GitHub Pages
 
 on:
   # Runs on pushes targeting a tag
@@ -37,14 +37,13 @@ jobs:
 
       - run: |
           gem install asciidoctor 
-          cd docs
-          asciidoctor -D output *.adoc
+          asciidoctor *.adoc -R docs -D output
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
-          path: "./docs/output"
+          path: "./output"
 
   # Deployment job
   deploy:
