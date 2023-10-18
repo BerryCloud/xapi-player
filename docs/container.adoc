@@ -51,3 +51,30 @@ The `pathContainerId` **must**:
 - be a URI prefixed with `containers/`
 - be unique in the unit
 - only contain characters that are allowed in a URI but do not have a reserved purpose (as defined in RFC 3986)
+
+=== Examples
+
+==== Container definition
+
+A minimal container definition is composed of the following properties:
+`id`, `name`, and `blocks`.
+
+[source,json]
+----
+      {
+         "id":"containers/introduction",
+         "name":{
+            "en":"Introduction"
+         },
+         "activity":{
+            "id":"http://example.com/introduction-to-atmospheric-circulation/introduction"
+         },
+         "blocks":[
+            {
+               "type":"html",
+               "url":"data/introduction/header.html"
+            }
+         ],
+         "unitCompletion":false
+      }
+----

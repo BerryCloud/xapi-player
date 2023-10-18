@@ -45,3 +45,38 @@ The `pathId` **must**:
 - be a URI prefixed with `paths/`
 - be unique in the unit
 - only contain characters that are allowed in a URI but do not have a reserved purpose (as defined in RFC 3986)
+
+=== Examples
+
+==== Path definition
+
+A minimum path definition has the following properties:
+`id` and `containers`.
+
+[source,json]
+----
+{
+   "id":"paths/advanced-atmospheric-circulation",
+   "name":{
+      "en":"Advanced Atmospheric Circulation"
+   },
+   "activity":{
+      "id":"http://example.com/introduction-to-atmospheric-circulation/advanced-atmospheric-circulation"
+   },
+   "containers":[
+      {
+         "id":"containers/section1",
+         "name":{
+            "en":"Section 1"
+         },
+         "blocks":[
+            {
+               "type":"html",
+               "url":"data/section1/header.html"
+            }
+         ],
+         "unitCompletion":false
+      }
+   ]
+};
+----

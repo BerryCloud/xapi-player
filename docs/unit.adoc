@@ -64,7 +64,7 @@ A minimal unit definition is composed of the following properties:
       "url":"data/atmospheric-circulation.jpg"
    },
    "activity":{
-      "id":"introduction-to-atmospheric-circulation"
+      "id":"http://example.com/introduction-to-atmospheric-circulation"
    },
    "primaryColor":"#3f51b5",
    "accentColor":"#ff4081",
