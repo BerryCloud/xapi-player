@@ -40,3 +40,49 @@ A unit is considered completed when at least one of the xref:container.adoc#cont
 A unit is considered passed if a xref:block.adoc#questionnairePart[`QuestionnairePart`] has the `unitPass` property set to `true` and the user has passed the questionnaire part.
 
 If a unit has a `help` path, an implementation **should** provide a way for the user to access it.
+
+An implementation **should** display the `sectionTitle` property in the navigation if it is set.
+
+=== Examples
+
+==== Minimal unit definition
+
+A minimal unit definition is composed of the following properties:
+`version`, `name`, `description`, `activity`, `image`, `primaryColor`, `accentColor`, `warnColor` and `containers`.
+
+[source,json]
+----
+{
+   "version":"1.0.0",
+   "name":{
+      "en":"Introduction to Atmospheric Circulation"
+   },
+   "description":{
+      "en":"This course will introduce the concepts of atmospheric circulation and how heat is transferred around the globe."
+   },
+   "image":{
+      "url":"data/atmospheric-circulation.jpg"
+   },
+   "activity":{
+      "id":"introduction-to-atmospheric-circulation"
+   },
+   "primaryColor":"#3f51b5",
+   "accentColor":"#ff4081",
+   "warnColor":"#f44336",
+   "containers":[
+      {
+         "id":"containers/summary",
+         "name":{
+            "en":"Summary"
+         },
+         "blocks":[
+            {
+               "type":"html",
+               "url":"data/summary/header.html"
+            }
+         ],
+         "unitCompletion":true
+      }
+   ]
+};
+----
