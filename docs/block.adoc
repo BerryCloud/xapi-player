@@ -112,6 +112,61 @@ If `activity` is undefined, no statements about the panel will be sent to the LR
 
 An accordion panel is considered done when all the blocks of the accordion panel are done. It cannot be done until it is visible.
 
+==== Example
+
+[source, json]
+----
+{
+  "type": "accordion",
+  "doneCriteria": "completed",
+  "minimumPanelsDone": 2,
+  "panels": [
+    {
+      "name": {
+        "en-US": "Panel 1"
+      },
+      "activity": {
+        "id": "https://www.example.com/panel1"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/panel1.html"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en-US": "Panel 2"
+      },
+      "activity": {
+        "id": "https://www.example.com/panel2"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/panel2.html"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en-US": "Panel 3"
+      },
+      "activity": {
+        "id": "https://www.example.com/panel3"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/panel3.html"
+        }
+      ]
+    }
+  ]
+}
+----
+
 [#audioPlayer]
 === AudioPlayer
 
@@ -144,6 +199,17 @@ The `url` property **must** be a valid URL.
 If the `doneCriteria` is set to `experienced`, then the audio player is considered done when the audio player is visible.
 If the `doneCriteria` is set to `completed`, then the audio player is considered done when the audio is played until the end.
 If the `doneCriteria` is set to `interacted`, then the audio player is considered done when the audio is played.
+
+==== Example
+
+[source, json]
+----
+{
+  "type": "audio-player",
+  "doneCriteria": "completed",
+  "url": "https://www.example.com/audio.mp3"
+}
+----
 
 [#buttonGroup]
 === ButtonGroup
@@ -215,6 +281,58 @@ A button **must** have at least one of the following properties: `text` or `imag
 ===== Details
 
 If the `action` property is a URL, then the button will open the URL. If the `action` property is a `PathId`, then the button will redirect the learner to the xref:path.adoc[`Path`]. When the xref:path.adoc[`Path`] is completed, the learner will be redirected back to the original xref:path.adoc[`Path`]. If the `action` property is a `PathContainerId`, then the button will redirect the learner to the xref:container.adoc#container[`Container`]. The xref:path.adoc#container[`Container`] may be in a different xref:path.adoc[`Path`]. When the xref:path.adoc#container[`Container`] is completed, it is the responsibility of the implementation to determine what to do next. If the `action` is a URL then the button is considered done when it is actioned. If the `action` is a `PathId` then the button is considered done when the xref:path.adoc[`Path`] is done. If the `action` is a `PathContainerId` then the button is considered done when it is actioned.
+
+==== Example
+
+[source, json]
+----
+{
+  "type": "button-group",
+  "doneCriteria": "completed",
+  "minimumButtonsDone": 2,
+  "single": false,
+  "buttons": [
+    {
+      "text": {
+        "en-US": "Learn more"
+      },
+      "title": {
+        "en-US": "Weather"
+      },
+      "description": {
+        "en-US": "Find out more about the weather"
+      },
+      "action": "paths/weather"
+
+    },
+    {
+      "text": {
+        "en-US": "Learn more"
+      },
+      "title": {
+        "en-US": "Oceans"
+      },
+      "description": {
+        "en-US": "Discover the ocean circulation patterns"
+      },
+      "action": "https://www.example.com/oceans"
+    },
+    {
+      "text": {
+        "en-US": "Learn more"
+      },
+      "title": {
+        "en-US": "Climate"
+      },
+      "description": {
+        "en-US": "Explore the climate of the world"
+      },
+      "action": "containers/climate"
+    }
+  
+  ]
+}
+----
 
 [#flashcardGroup]
 === FlashcardGroup
@@ -289,6 +407,42 @@ A card side **must** have at least one of the following properties: `text`, `des
 
 A flashcard is considered done when it is actioned.
 
+==== Example
+
+[source, json]
+----
+{
+  "type": "flashcard-group",
+  "doneCriteria": "completed",
+  "flashcards": [
+    {
+      "front": {
+        "text": {
+          "en-US": "Polar cell"
+        },
+        "description": {
+          "en-US": "60-90 degrees latitude"
+        },
+        "image": {
+          "url": "https://www.example.com/polar-cell.png"
+        }
+      },
+      "back": {
+        "text": {
+          "en-US": "Polar cell"
+        },
+        "description": {
+          "en-US": "At the poles, air is cooled and sinks towards the ground forming high pressure"
+        },
+        "audio": {
+          "url": "https://www.example.com/polar.mp3"
+        }
+      }
+    }
+  ]
+}
+----
+
 [#HTML]
 === HTML
 
@@ -315,6 +469,17 @@ The `url` property **must** be a valid URL.
 ==== Details
 
 If the `doneCriteria` is set to `experienced`, then the HTML content is considered done when the HTML content is visible.
+
+==== Example
+
+[source, json]
+----
+{
+  "type": "html",
+  "doneCriteria": "experienced",
+  "url": "https://www.example.com/html.html"
+}
+----
 
 [#labeledImage]
 === LabeledImage
@@ -380,6 +545,50 @@ A positioned label to open when its icon is actioned.
 
 A label is considered done when it is opened. It cannot be done until it is visible.
 
+=== Example of a Labeled Image Block
+
+[source, json]
+----
+{
+  "type": "labeled-image",
+  "image": "https://www.example.com/image.png",
+  "doneCriteria": "completed",
+  "minimumLabelsOpened": 2,
+  "labels": [
+    {
+      "name": {
+        "en-US": "Label 1"
+      },
+      "description": {
+        "en-US": "Description of Label 1"
+      },
+      "x": 100,
+      "y": 200
+    },
+    {
+      "name": {
+        "en-US": "Label 2"
+      },
+      "description": {
+        "en-US": "Description of Label 2"
+      },
+      "x": 300,
+      "y": 400
+    },
+    {
+      "name": {
+        "en-US": "Label 3"
+      },
+      "description": {
+        "en-US": "Description of Label 3"
+      },
+      "x": 500,
+      "y": 600
+    }
+  ]
+}
+----
+
 [#process]
 === Process
 
@@ -439,6 +648,51 @@ The `blocks` array **must** contain at least one <<HTML, `HTML`>> or <<youTubePl
 ===== Details
 
 A step is considered done when all the blocks of the step are done. It cannot be done until it is visible.
+
+=== Example of a Process Block
+
+[source, json]
+----
+{
+  "type": "process",
+  "doneCriteria": "completed",
+  "steps": [
+    {
+      "activity": {
+        "id": "https://www.example.com/step1"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/step1.html"
+        }
+      ]
+    },
+    {
+      "activity": {
+        "id": "https://www.example.com/step2"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/step2.html"
+        }
+      ]
+    },
+    {
+      "activity": {
+        "id": "https://www.example.com/step3"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/step3.html"
+        }
+      ]
+    }
+  ]
+}
+----
 
 [#questionnaire]
 === Questionnaire
@@ -787,6 +1041,10 @@ If the selected value is `null`, then the learner is not asked any more question
 
 If the `next` property is undefined, then the learner is not asked any more questions.
 
+==== Example
+
+[source, json]
+
 [#tabs]
 === Tabs
 
@@ -800,10 +1058,7 @@ Contains a series of tabs, a single tab is always visible.
 | `type` | `string` | Type of the <<block,`Block`>> | Yes
 | `doneCriteria` | `string` | Criteria to determine if the tabs are done | No
 | `minimumTabsDone` | `number` | Minimum number of tabs that are required to be done to consider the tabs done | No
-| `numberOfQuestions` | `number` | Number of questions to be randomly selected from the questions array | No
 | `tabs` |  <<tab, `Tab`>> `array` | Tabs of the tabs | Yes
-| `next` | <<nextMap,`NextMap`>> | Next step of the questionnaire | Yes
-
 |===
 
 ==== Restrictions
@@ -856,6 +1111,65 @@ If `activity` is undefined, no statements about the tab will be sent to the LRS.
 
 A tab is considered done when all the blocks of the tab are done. It cannot be done until it is visible.
 
+==== Example
+
+[source, json]
+----
+{
+  "type": "tabs",
+  "doneCriteria": "completed",
+  "minimumTabsDone": 2,
+  "tabs": [
+    {
+      "name": {
+        "en-US": "Tab 1"
+      },
+      "activity": {
+        "id": "https://www.example.com/tab1"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/tab1.html"
+        },
+        {
+          "type": "youtube",
+          "id": "123456789"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en-US": "Tab 2"
+      },
+      "activity": {
+        "id": "https://www.example.com/tab2"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/tab2.html"
+        }
+      ]
+    },
+    {
+      "name": {
+        "en-US": "Tab 3"
+      },
+      "activity": {
+        "id": "https://www.example.com/tab3"
+      },
+      "blocks": [
+        {
+          "type": "html",
+          "url": "https://www.example.com/tab3.html"
+        }
+      ]
+    }
+  ]
+}
+----
+
 [#videoPlayer]
 === VideoPlayer
 
@@ -889,6 +1203,17 @@ If the `doneCriteria` is set to `experienced`, then the video player is consider
 If the `doneCriteria` is set to `completed`, then the video player is considered done when the video is played until the end.
 If the `doneCriteria` is set to `interacted`, then the video player is considered done when the video is played.
 
+=== Example of a Video Block
+
+[source, json]
+----
+{
+  "type": "video",
+  "doneCriteria": "completed",
+  "url": "https://www.example.com/video.mp4"
+}
+----
+
 [#youTubePlayer]
 === YouTubePlayer
 
@@ -921,3 +1246,14 @@ The `id` property **must** be a valid YouTube video ID.
 If the `doneCriteria` is set to `experienced`, then the YouTube player is considered done when the YouTube player is visible.
 If the `doneCriteria` is set to `completed`, then the YouTube player is considered done when the video is played until the end.
 If the `doneCriteria` is set to `interacted`, then the YouTube player is considered done when the video is played.
+
+=== Example of a YouTube Block
+
+[source, json]
+----
+{
+  "type": "youtube",
+  "doneCriteria": "completed",
+  "id": "123456789"
+}
+----
