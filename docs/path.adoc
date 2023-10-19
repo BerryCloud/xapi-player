@@ -1,3 +1,4 @@
+[#path]
 == Path
 
 A path is a collection of ordered containers that a learner can navigate through.

@@ -2,13 +2,17 @@
 Thomas Turrell-Croft; Katie Noake; István Rátkai
 :toc:
 :toclevels: 2
+:toc: left
 
 include::unit.adoc[]
 
+include::path.adoc[]
+
 include::container.adoc[]
+
+include::block.adoc[]
 
 include::image.adoc[]
 
-include::path.adoc[]
 
-include::block.adoc[]
+

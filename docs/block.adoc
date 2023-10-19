@@ -47,8 +47,6 @@ The `type` property is used to determine the type of the `Block`. The type of th
 
 Once a block is done it cannot be undone. 
 
-== Block Types
-
 [#accordion]
 === Accordion
 
