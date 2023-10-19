@@ -8,6 +8,8 @@ Draft a [new GitHub release](https://github.com/BerryCloud/xapi-player/releases/
 
 Select `Choose a tag` and type the new version number prefixed with `v` and select `create new tag: v*.*.* on publish`.
 
+Ensure that the target is `main`.
+
 The release title should be the new version number prefixed with `v`.
 
 Publish the release.
