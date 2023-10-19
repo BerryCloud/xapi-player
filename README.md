@@ -1,8 +1,30 @@
-# xAPI Player
+# Foo
 
-xAPI Player defines the JSON structure of a course or unit and can help when developing an authoring tool and implementing a course player.
+The Foo specification defines a structure that is used to render a user interface and describe learning content and learning objectives.
 
-It can be used when creating an implementation that sends xAPI statements to a Learning Record Store (LRS), defining when the learner has met the requirements for sending statements for certain xAPI verbs. The JSON definition may also be used when implementing the cmi5 specification, defining the pass and completion of a unit.
+A content player that implements the Foo specification can be used to render learning content.
+
+blocks
+
+defines the JSON structure of learning content
+
+The JSON
+
+JSON format.
+
+Hypothetical content player.
+
+implementation
+
+UI
+
+completed
+
+passed
+
+failed
+
+doneCriteria
 
 View the [documentation](https://berrycloud.github.io/xapi-player/)
 
@@ -26,3 +48,5 @@ Here are some ways you can contribute:
 - by writing or editing documentation
 - by fixing [issues](https://github.com/BerryCloud/xapi-player/issues)
 - by reviewing pull requests
+
+Foo is a vocabulary that you can use to annotate and validate JSON documents. This tutorial guides you through the process of creating a JSON Schema document, including:
