@@ -24,6 +24,5 @@ Here are some ways you can contribute:
 - by reporting bugs
 - by suggesting new features
 - by writing or editing documentation
-- by refactoring code
 - by fixing [issues](https://github.com/BerryCloud/xapi-player/issues)
-- by reviewing patches
+- by reviewing pull requests
