@@ -800,9 +800,7 @@ Contains a series of tabs, a single tab is always visible.
 | `type` | `string` | Type of the <<block,`Block`>> | Yes
 | `doneCriteria` | `string` | Criteria to determine if the tabs are done | No
 | `minimumTabsDone` | `number` | Minimum number of tabs that are required to be done to consider the tabs done | No
-| `numberOfQuestions` | `number` | Number of questions to be randomly selected from the questions array | No
 | `tabs` |  <<tab, `Tab`>> `array` | Tabs of the tabs | Yes
-| `next` | <<nextMap,`NextMap`>> | Next step of the questionnaire | Yes
 
 |===
 
@@ -826,7 +824,7 @@ If the `doneCriteria` is set to `experienced`, then the tabs are considered done
 If the `doneCriteria` is set to `completed`, then the tabs are considered done when the minimum number of tabs have been done.
 If the `doneCriteria` is set to `interacted`, then the tabs are considered done when at least one tab is opened.
 
-If the `minimumTabsDone` property is undefined, then the tabs considered done when all the tabs are done.
+If the `minimumTabsDone` property is undefined, and the `doneCriteria` is `completed`, then the tabs are considered done when all the tabs are done.
 
 An implementation **should** display the tabs in the order they are defined in the `tabs` array.
 
@@ -867,6 +865,7 @@ Can play a video file.
 |===
 | Name | Type | Description | Required
 | `type` | `string` | Type of the <<block,`Block`>> | Yes
+| `activity` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition[Activity]  | Activity of the container | No
 | `doneCriteria` | `string` | Criteria to determine if the video player is done | No
 | `url` | `string` | URL of the video file | Yes
 |===
@@ -900,6 +899,7 @@ Can play a YouTube video.
 |===
 | Name | Type | Description | Required
 | `type` | `string` | Type of the <<block,`Block`>> | Yes
+| `activity` | https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Data.md#activity-definition[Activity]  | Activity of the container | No
 | `doneCriteria` | `string` | Criteria to determine if the YouTube player is done | No
 | `id` | `string` | ID of the YouTube video | Yes
 |===
